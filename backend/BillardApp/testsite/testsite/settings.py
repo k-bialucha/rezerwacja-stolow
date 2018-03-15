@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'testsite',
 ]
 
 MIDDLEWARE = [
@@ -59,7 +61,7 @@ ROOT_URLCONF = 'testsite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -91,7 +93,8 @@ DATABASES = {
         'NAME': 'innodb',                   # Or path to database file if using sqlite3.
         'USER': 'webroot',                      # Not used with sqlite3.
         'PASSWORD': os.getenv('MYSQL_PASSWORD'),                  # Not used with sqlite3.
-        'HOST': 'bilardapp.c6daxmywxacx.us-east-1.rds.amazonaws.com',                      # Set to empty string for localhost. Not used with sqlite3.
+         
+	'HOST': 'bilardapp.c6daxmywxacx.us-east-1.rds.amazonaws.com',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '3306',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
@@ -133,4 +136,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
-
+STATICFILES_DIRS = [ 
+	'static'
+]
