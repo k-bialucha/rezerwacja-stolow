@@ -6,6 +6,10 @@ from testsite.models import Reservation
 from django.shortcuts import get_object_or_404
 from django.db import connection
 
+from testsite.models import ReservationList
+from testsite.serializers import ReservationListSerializer
+from rest_framework import viewsets
+
 class ReservationView(APIView):
 	def get(self, request):
 		todos = Reservation.objects.all()
@@ -26,4 +30,17 @@ class ReservationsDetailView(APIView):
 		testsite = get_object_or_404(Reservation, pk=pk)
 		testsite.delete()
 		return Response(status=status.HTTP_204_NO_CONTENT)
-		
+class ReservationListViewSet(APIView):
+	def get(self, request):
+		queryset = ReservationList.objects.all().order_by('-DATE')
+		serializer = ReservationListSerializer(queryset, many=True)
+		return Response(serializer.data)
+
+	def put(self, request):
+		serializer = ReservationListSerializer(data=request.data)
+		if serializer.is_valid():
+			serializer.save()
+			return Response(serializer.data)
+		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
