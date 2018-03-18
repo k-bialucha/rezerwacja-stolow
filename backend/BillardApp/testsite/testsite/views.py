@@ -10,6 +10,10 @@ from testsite.models import ReservationList
 from testsite.serializers import ReservationListSerializer
 from rest_framework import viewsets
 
+from testsite.models import ReservationPriceHour
+from testsite.serializers import ReservationPriceSerializer
+
+
 class ReservationView(APIView):
 	def get(self, request):
 		todos = Reservation.objects.all()
@@ -38,6 +42,20 @@ class ReservationListViewSet(APIView):
 
 	def put(self, request):
 		serializer = ReservationListSerializer(data=request.data)
+		if serializer.is_valid():
+			serializer.save()
+			return Response(serializer.data)
+		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ReservationPriceViewSet(APIView):
+	def get(self, request):
+		queryset = ReservationPriceHour.objects.all()
+		serializer = ReservationPriceSerializer(queryset, many=True)
+		return Response(serializer.data)
+
+	def put(self, request):
+		serializer = ReservationPriceSerializer(data=request.data)
 		if serializer.is_valid():
 			serializer.save()
 			return Response(serializer.data)

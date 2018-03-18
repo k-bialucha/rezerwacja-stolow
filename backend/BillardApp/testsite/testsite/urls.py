@@ -19,7 +19,7 @@ from django.views.generic import TemplateView
 
 from .views import ReservationView, ReservationsDetailView
 
-from .views import ReservationListViewSet
+from .views import ReservationListViewSet, ReservationPriceViewSet
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -27,6 +27,6 @@ urlpatterns = [
 	url(r'^testsite/api/$', ReservationView.as_view()),	
 	url(r'^testsite/api/(?P<pk>[0-9]+)/', ReservationsDetailView.as_view()),
 	url(r'^testsite/api2/$', ReservationListViewSet.as_view()),
- 	
+ 	url(r'^testsite/api3/$', ReservationPriceViewSet.as_view()),
 	
 ]
