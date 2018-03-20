@@ -56,6 +56,9 @@ freeline/
 freeline_project_description.json
 
 ==========PYTHON==========
+# default venv
+newenv
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
