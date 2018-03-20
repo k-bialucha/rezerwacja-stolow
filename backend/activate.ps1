@@ -1,1 +1,2 @@
-newenv\Scripts\Activate.ps1
+param($envname = "newenv")
+Invoke-Expression "$envname\Scripts\Activate.ps1"
