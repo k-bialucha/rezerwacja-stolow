@@ -4,6 +4,7 @@ import './App.css';
 import CssBaseline from 'material-ui/CssBaseline';
 
 import Header from './Header/Header';
+import AppBody from '../AppBody/AppBody';
 
 class App extends Component {
   render() {
@@ -11,9 +12,7 @@ class App extends Component {
       <div className="App">
         <CssBaseline />
         <Header />
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <AppBody />
       </div>
     );
   }
