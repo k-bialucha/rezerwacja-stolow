@@ -1,0 +1,5 @@
+.Header__title {
+    text-align: left;
+    display: flex;
+    flex: 1;
+}
