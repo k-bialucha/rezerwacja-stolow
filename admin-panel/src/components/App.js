@@ -4,7 +4,7 @@ import './App.css';
 import CssBaseline from 'material-ui/CssBaseline';
 
 import Header from './Header/Header';
-import AppBody from '../AppBody/AppBody';
+import AppBody from './AppBody/AppBody';
 
 class App extends Component {
   render() {
