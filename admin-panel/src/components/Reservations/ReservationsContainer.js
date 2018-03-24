@@ -7,9 +7,26 @@ class ReservationsContainer extends Component {
         super(props);
         this.state = {
             reservations: [
-                { name: 'Reservation 1', date: 'today', price: 25.99 },
-                { name: 'Reservation 2', date: 'today', price: 12.99 },
-                { name: 'Reservation 5', date: 'tomorrow', price: 17.99 }
+                    {
+                        "ID_RES": 20,
+                        "ID_USER": 2,
+                        "ID_TABLE": 1,
+                        "DATE": "2018-03-25",
+                        "HOUR_FROM": 5,
+                        "HOUR_TO": 6,
+                        "CHARGE": 35,
+                        "CONFIRMED": false
+                    },
+                    {
+                        "ID_RES": 19,
+                        "ID_USER": 1,
+                        "ID_TABLE": 1,
+                        "DATE": "2018-03-22",
+                        "HOUR_FROM": 1,
+                        "HOUR_TO": 2,
+                        "CHARGE": 14,
+                        "CONFIRMED": false
+                    }
             ]
         };
     }
