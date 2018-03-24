@@ -1,0 +1,12 @@
+.Reservations {
+    width: 60vw;
+    min-width: 450px;
+    max-width: 1000px;
+    margin: 15px auto;
+}
+
+.Reservation {
+    border: 2px solid rgb(26, 143, 143);
+    border-radius: 10px;
+    margin: 10px;
+}

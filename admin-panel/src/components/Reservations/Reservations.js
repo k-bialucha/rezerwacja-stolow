@@ -1,9 +1,11 @@
 import React from 'react';
 
+import './Reservations.css';
+
 const Reservations = props => {
     const reservations = props.reservations
         .map( (reservation, index) => 
-            <div className="Reservation">
+            <div key={index} className="Reservation">
                 <p>{index+1}. ID: {reservation['ID_RES']}</p>
                 <p>Użytkownik: {reservation['ID_USER']}</p>
                 <p>Stół nr: {reservation['ID_TABLE']}</p>
@@ -11,8 +13,8 @@ const Reservations = props => {
             </div>
         );
     return (
-        <div>
-            Reservations:
+        <div className="Reservations">
+            <h4>Reservations:</h4>
             {reservations}
         </div>
     );
