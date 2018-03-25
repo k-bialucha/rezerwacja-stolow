@@ -3,6 +3,8 @@ import React from 'react';
 import './Reservations.css';
 
 import ReservationItem from './ReservationItem';
+import Paper from 'material-ui/Paper';
+import Typography from 'material-ui/Typography';
 
 const Reservations = props => {
     const reservations = props.reservations
@@ -18,10 +20,14 @@ const Reservations = props => {
             />
         );
     return (
-        <div className="Reservations">
-            <h4>Reservations:</h4>
-            {reservations}
-        </div>
+        <Paper className="Reservations">
+            <Typography variant="display1">
+                Rezerwacje:
+            </Typography>
+            <div className="Reservations-list">
+                {reservations}
+            </div>
+        </Paper>
     );
 }
 
