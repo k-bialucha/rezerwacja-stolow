@@ -2,15 +2,20 @@ import React from 'react';
 
 import './Reservations.css';
 
+import ReservationItem from './ReservationItem';
+
 const Reservations = props => {
     const reservations = props.reservations
         .map( (reservation, index) => 
-            <div key={index} className="Reservation">
-                <p>{index+1}. ID: {reservation['ID_RES']}</p>
-                <p>Użytkownik: {reservation['ID_USER']}</p>
-                <p>Stół nr: {reservation['ID_TABLE']}</p>
-                <p>Data: {reservation['DATE']} {reservation['HOUR_FROM']}-{reservation['HOUR_TO']} </p>
-            </div>
+            <ReservationItem 
+                key={index}
+                id={reservation['ID_RES']}
+                date={reservation['DATE']}
+                startHour={reservation['HOUR_FROM']}
+                endHour={reservation['HOUR_TO']}
+                tableId={reservation['ID_TABLE']}
+                userId={reservation['ID_USER']}
+            />
         );
     return (
         <div className="Reservations">
