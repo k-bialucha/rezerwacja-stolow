@@ -13,8 +13,8 @@ class ReservationList(models.Model):
 	DATE = models.DateField()
 	HOUR_FROM = models.IntegerField() 
 	HOUR_TO = models.IntegerField() 
-	CHARGE = models.IntegerField() 
-	CONFIRMED = models.BooleanField()
+	CHARGE = models.IntegerField(blank=True) 
+	CONFIRMED = models.BooleanField(default=False)
 	def __unicode__(self):
 		return self.ID_RES
 
