@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from testsite.serializers import ReservationSerializer
 from testsite.models import Reservation
 from django.shortcuts import get_object_or_404
+
 from django.db import connection
 
 from testsite.models import ReservationList
@@ -46,6 +47,13 @@ class ReservationListViewSet(APIView):
 			serializer.save()
 			return Response(serializer.data)
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+	def post(self, request):
+		serializer = ReservationListSerializer(data=request.data)
+		if serializer.is_valid():
+			serializer.save()
+			return Response(serializer.data, status=status.HTTP_201_CREATED)
+		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 class ReservationPriceViewSet(APIView):

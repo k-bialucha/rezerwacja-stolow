@@ -10,7 +10,7 @@ class ReservationList(models.Model):
 	ID_RES = models.AutoField(primary_key=True)
 	ID_USER = models.IntegerField() 
 	ID_TABLE = models.IntegerField() 
-	DATE = models.DateField(auto_now_add=True)
+	DATE = models.DateField()
 	HOUR_FROM = models.IntegerField() 
 	HOUR_TO = models.IntegerField() 
 	CHARGE = models.IntegerField() 
