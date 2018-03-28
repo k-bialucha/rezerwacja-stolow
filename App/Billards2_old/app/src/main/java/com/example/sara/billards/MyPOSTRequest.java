@@ -1,12 +1,6 @@
 package com.example.sara.billards;
 
 
-import android.nfc.Tag;
-import android.util.Log;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -19,45 +13,29 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 class MyPOSTRequest extends JsonObjectRequest {
-    TextView tvHour1;
-    Button bHour1;
-    private static final String TAG = "MyActivity";
 
     public MyPOSTRequest(String url, JSONObject jsonRequest,
                          Response.Listener<JSONObject> listener,
                          Response.ErrorListener errorListener) {
         super(Request.Method.POST, url, jsonRequest, listener, errorListener);
     }
-
+//tworzenie przykladowego jsona do wysylania danych na serwer
     public static JSONObject createSampleObject() {
-        CalenderActivity calenderactivity=new CalenderActivity();
-
-        String date=(calenderactivity.getDate());
-
-       Log.e(TAG," date from PostRequest class "+calenderactivity.getDate());
-
-        int tableId = 1;
-        int userId = 1;
-        int charge = 1;
-
-      int hour = 1;
-        int year = 2018;
+        Random generator = new Random();
+        int tableId = generator.nextInt(2)+1;
+        int userId = generator.nextInt(3)+1;
+        int charge = generator.nextInt(60)+12;
+        int hour = generator.nextInt(10)+12;
+        int year = generator.nextInt(30)+1990;
         JSONObject sampleObject = new JSONObject();
-
         try {
-            //HoursActivity hoursActivity=new HoursActivity();
-           // String hour2 = hoursActivity.takeHour();
-
-           // Log.e(TAG, " hour from PostRequest class " + hour2);
-
             sampleObject = sampleObject.put("ID_USER", userId);
             sampleObject = sampleObject.put("ID_TABLE", tableId);
             sampleObject = sampleObject.put("CHARGE", charge);
             sampleObject = sampleObject.put("HOUR_FROM", hour);
-            sampleObject = sampleObject.put("HOUR_TO", hour+1);
+            sampleObject = sampleObject.put("HOUR_TO", hour+2);
             sampleObject = sampleObject.put("DATE", year+"-01-01");
         } catch(JSONException exception) {
-            exception.printStackTrace();
 
         }
         return sampleObject;

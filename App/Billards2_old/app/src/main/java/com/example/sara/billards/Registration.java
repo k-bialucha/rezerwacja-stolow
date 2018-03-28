@@ -108,14 +108,14 @@ Context context;
         latestRequestArray = ((JSONArray) response);
         mTextView.setText("Response is: " + response);
         try {
-            int itemToDisplayId = latestRequestArray.length();
+            Random generator = new Random();
+            int itemToDisplayId = generator.nextInt(latestRequestArray.length());
             int reservationId = latestRequestArray.getJSONObject(itemToDisplayId).getInt("ID_RES");
             int tableId = latestRequestArray.getJSONObject(itemToDisplayId).getInt("ID_TABLE");
             String date = latestRequestArray.getJSONObject(itemToDisplayId).getString("DATE");
             int startHour = latestRequestArray.getJSONObject(itemToDisplayId).getInt("HOUR_FROM");
             int endHour = latestRequestArray.getJSONObject(itemToDisplayId).getInt("HOUR_TO");
             int charge = latestRequestArray.getJSONObject(itemToDisplayId).getInt("CHARGE");
-
             String textToDisplay = "Response:" + "\n\n"
                     + "Reservation " +(itemToDisplayId+1) +" details \n"
                     +"ID: "+reservationId + ", table: " + tableId + "\n"
