@@ -18,9 +18,8 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+
 class MyPOSTRequest extends JsonObjectRequest {
-    TextView tvHour1;
-    Button bHour1;
     private static final String TAG = "MyActivity";
 
     public MyPOSTRequest(String url, JSONObject jsonRequest,
@@ -30,12 +29,6 @@ class MyPOSTRequest extends JsonObjectRequest {
     }
 
     public static JSONObject createSampleObject() {
-        CalenderActivity calenderactivity=new CalenderActivity();
-
-        String date=(calenderactivity.getDate());
-
-       Log.e(TAG," date from PostRequest class "+calenderactivity.getDate());
-
         int tableId = 1;
         int userId = 1;
         int charge = 1;
@@ -45,11 +38,6 @@ class MyPOSTRequest extends JsonObjectRequest {
         JSONObject sampleObject = new JSONObject();
 
         try {
-            //HoursActivity hoursActivity=new HoursActivity();
-           // String hour2 = hoursActivity.takeHour();
-
-           // Log.e(TAG, " hour from PostRequest class " + hour2);
-
             sampleObject = sampleObject.put("ID_USER", userId);
             sampleObject = sampleObject.put("ID_TABLE", tableId);
             sampleObject = sampleObject.put("CHARGE", charge);
