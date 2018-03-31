@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 
 import Reservations from './Reservations';
 
+const apiUrl = 'http://ec2-18-217-215-212.us-east-2.compute.amazonaws.com:8000/';
+const servicePath = 'testsite/api2';
+
 class ReservationsContainer extends Component {
     constructor(props) {
         super(props);
@@ -34,7 +37,16 @@ class ReservationsContainer extends Component {
         this.fetchReservations();
     }
     fetchReservations() {
-
+        fetch(apiUrl+servicePath, {
+            headers: {
+                'accept': 'application/json'
+            }
+        })
+        .then( response => {
+            console.log('Response:', response);
+            return response.json()
+        } )
+        .then( json => this.setState({ reservations: json }) );
     }
     render() {
         return (
