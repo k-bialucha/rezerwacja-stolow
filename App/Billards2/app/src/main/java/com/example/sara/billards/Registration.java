@@ -27,7 +27,7 @@ import java.util.Random;
 public class Registration extends Activity implements Response.Listener,
         Response.ErrorListener {
     private TextView mTextView;
-    private Button buttonGET,buttonPOST,button_hours;
+    private Button buttonGET,buttonPOST,button_hours, button_date;
     private RequestQueue mQueue;
     private JSONArray latestRequestArray;
 Context context;
@@ -42,6 +42,7 @@ Context context;
         buttonGET = (Button) findViewById(R.id.buttonGET);
         buttonPOST = (Button) findViewById(R.id.buttonPOST);
         button_hours=(Button) findViewById(R.id.button_hours);
+        button_date=(Button) findViewById(R.id.button_date);
     }
     protected void onStart() {
         super.onStart();
