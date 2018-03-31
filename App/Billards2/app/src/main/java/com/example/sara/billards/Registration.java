@@ -55,20 +55,8 @@ public class Registration extends Activity implements Response.Listener,
         final MyJSONArrayRequest jsonRequest = new MyJSONArrayRequest(Request.Method
                 .GET, url,
                 new JSONArray(), this, this);
-        JSONObject sampleObject = MyPOSTRequest.createSampleObject();
-        final MyPOSTRequest postRequest = new MyPOSTRequest(
-                url,
-                sampleObject,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        mTextView.setText("New reservation sent \nData:\n"+response);
-                    }
-                },
-                this);
 
         jsonRequest.setTag(REQUEST_TAG);
-        postRequest.setTag(REQUEST_TAG2);
 
         buttonGET.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,7 +67,7 @@ public class Registration extends Activity implements Response.Listener,
         buttonPOST.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mQueue.add(postRequest);
+                sendData();
             }
         });
 
@@ -104,6 +92,22 @@ public class Registration extends Activity implements Response.Listener,
     @Override
     public void onErrorResponse(VolleyError error) {
         mTextView.setText(error.getMessage());
+    }
+
+    public void sendData() {
+        JSONObject sampleObject = MyPOSTRequest.createSampleObject();
+        final MyPOSTRequest postRequest = new MyPOSTRequest(
+                url,
+                sampleObject,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        mTextView.setText("New reservation sent \nData:\n"+response);
+                    }
+                },
+                this);
+        postRequest.setTag(REQUEST_TAG2);
+        mQueue.add(postRequest);
     }
 
     @Override
