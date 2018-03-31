@@ -30,9 +30,11 @@ public class Registration extends Activity implements Response.Listener,
     private Button buttonGET,buttonPOST,button_hours, button_date;
     private RequestQueue mQueue;
     private JSONArray latestRequestArray;
-Context context;
+    String url = "http://ec2-18-217-215-212.us-east-2.compute.amazonaws.com:8000/testsite/api2/";
+    Context context;
     public static final String REQUEST_TAG = "Activity";
     public static final String REQUEST_TAG2 = "Activty **POST**";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +51,7 @@ Context context;
         // Instantiate the RequestQueue.
         mQueue = CustomVolleyRequestQueue.getInstance(this.getApplicationContext())
                 .getRequestQueue();
-        String url = "http://ec2-18-217-215-212.us-east-2.compute.amazonaws.com:8000/testsite/api2/";
+
         final MyJSONArrayRequest jsonRequest = new MyJSONArrayRequest(Request.Method
                 .GET, url,
                 new JSONArray(), this, this);
