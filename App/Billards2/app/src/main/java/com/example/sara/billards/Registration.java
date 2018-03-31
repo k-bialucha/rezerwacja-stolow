@@ -75,6 +75,15 @@ public class Registration extends Activity implements Response.Listener,
             @Override
             public void onClick(View v) {
                 context = getApplicationContext();
+                Intent intent = new Intent(context, HoursActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        button_date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context = getApplicationContext();
                 Intent intent = new Intent(context, CalenderActivity.class);
                 startActivity(intent);
             }
