@@ -4,13 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CalendarView;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -22,18 +17,21 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Random;
-
 public class Registration extends Activity implements Response.Listener,
         Response.ErrorListener {
     private TextView mTextView;
-    private Button buttonGET,buttonPOST,button_hours, button_date;
+    private Button buttonGET, buttonPOST, button_hours, button_date;
+
     private RequestQueue mQueue;
     private JSONArray latestRequestArray;
     String url = "http://ec2-18-217-215-212.us-east-2.compute.amazonaws.com:8000/testsite/api2/";
-    Context context;
     public static final String REQUEST_TAG = "Activity";
     public static final String REQUEST_TAG2 = "Activty **POST**";
+
+    Context context;
+
+    private static final int REQUEST_DATE = 10;
+    private static final int REQUEST_HOURS = 11;
 
     private String date, hours;
 
