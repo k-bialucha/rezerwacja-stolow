@@ -76,7 +76,7 @@ public class Registration extends Activity implements Response.Listener,
             public void onClick(View v) {
                 context = getApplicationContext();
                 Intent intent = new Intent(context, HoursActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, REQUEST_HOURS);
             }
         });
 
@@ -103,6 +103,10 @@ public class Registration extends Activity implements Response.Listener,
         if(requestCode == REQUEST_DATE) {
             String date = data.getStringExtra("date");
             setDate(date);
+        }
+        if(requestCode == REQUEST_HOURS) {
+            String hours = data.getStringExtra("hours");
+            setHours(hours);
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
