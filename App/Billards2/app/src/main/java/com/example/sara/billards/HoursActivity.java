@@ -1,6 +1,7 @@
 package com.example.sara.billards;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -48,15 +49,16 @@ TextView tvHour1, tvHour2,tvHour3,tvHour4,tvHour5,tvHour6,tvHour7,tvHour8,tvHour
         bHour1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               takeHour();
+                sendHoursResult();
             }
         });
     }
-    public String takeHour() {
-        bHour1.setBackgroundColor(Color.RED);
-        String hour=tvHour1.getText().toString();
-        Toast.makeText(getApplicationContext(), "click " + hour, Toast.LENGTH_SHORT).show();
-        return hour;
-
+    public void sendHoursResult() {
+        String hours=tvHour1.getText().toString();
+        Toast.makeText(getApplicationContext(), "Hours: " + hours, Toast.LENGTH_SHORT).show();
+        Bundle bundle = new Bundle();
+        bundle.putString("hours", hours);
+        setResult(RESULT_OK, new Intent().putExtras(bundle));
+        finish();
     }
 }
