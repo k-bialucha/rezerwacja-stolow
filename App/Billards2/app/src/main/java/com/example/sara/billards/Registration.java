@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -127,6 +128,10 @@ public class Registration extends Activity implements Response.Listener,
     }
 
     public void sendData() {
+        if (date == null) {
+            Toast.makeText(this, "DATE not selected!", Toast.LENGTH_SHORT).show();
+            return;
+        }
         JSONObject sampleObject = MyPOSTRequest.createSampleObject(date);
         final MyPOSTRequest postRequest = new MyPOSTRequest(
                 url,
