@@ -35,6 +35,8 @@ public class Registration extends Activity implements Response.Listener,
     public static final String REQUEST_TAG = "Activity";
     public static final String REQUEST_TAG2 = "Activty **POST**";
 
+    private String date, hours;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,6 +98,16 @@ public class Registration extends Activity implements Response.Listener,
         if (mQueue != null) {
             mQueue.cancelAll(REQUEST_TAG);
         }
+    }
+
+    private void setDate(String date) {
+        this.date = date;
+        mTextView.setText("Selected date: " + date);
+    }
+
+    private void setHours(String hours) {
+        this.hours = hours;
+        mTextView.setText("Selected hours: " + hours);
     }
 
     @Override
