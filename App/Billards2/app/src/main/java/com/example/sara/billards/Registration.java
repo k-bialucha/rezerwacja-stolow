@@ -87,7 +87,7 @@ public class Registration extends Activity implements Response.Listener,
             public void onClick(View v) {
                 context = getApplicationContext();
                 Intent intent = new Intent(context, CalenderActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
             }
         });
     }
@@ -98,6 +98,15 @@ public class Registration extends Activity implements Response.Listener,
         if (mQueue != null) {
             mQueue.cancelAll(REQUEST_TAG);
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == RESULT_OK) {
+            String date = data.getStringExtra("date");
+            setDate(date);
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void setDate(String date) {
