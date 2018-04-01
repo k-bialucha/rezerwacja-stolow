@@ -127,7 +127,7 @@ public class Registration extends Activity implements Response.Listener,
     }
 
     public void sendData() {
-        JSONObject sampleObject = MyPOSTRequest.createSampleObject();
+        JSONObject sampleObject = MyPOSTRequest.createSampleObject(date);
         final MyPOSTRequest postRequest = new MyPOSTRequest(
                 url,
                 sampleObject,

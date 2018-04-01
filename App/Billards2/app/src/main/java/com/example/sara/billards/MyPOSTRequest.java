@@ -28,13 +28,12 @@ class MyPOSTRequest extends JsonObjectRequest {
         super(Request.Method.POST, url, jsonRequest, listener, errorListener);
     }
 
-    public static JSONObject createSampleObject() {
+    public static JSONObject createSampleObject(String date) {
         int tableId = 1;
         int userId = 1;
         int charge = 1;
+        int hour = 1;
 
-      int hour = 1;
-        int year = 2018;
         JSONObject sampleObject = new JSONObject();
 
         try {
@@ -43,7 +42,7 @@ class MyPOSTRequest extends JsonObjectRequest {
             sampleObject = sampleObject.put("CHARGE", charge);
             sampleObject = sampleObject.put("HOUR_FROM", hour);
             sampleObject = sampleObject.put("HOUR_TO", hour+1);
-            sampleObject = sampleObject.put("DATE", year+"-01-01");
+            sampleObject = sampleObject.put("DATE", date);
         } catch(JSONException exception) {
             exception.printStackTrace();
 
