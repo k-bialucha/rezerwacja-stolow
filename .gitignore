@@ -111,4 +111,5 @@ coverage.xml
 docs/_build/
 
 ==========IDE==========
-.vscode
+.vscode/
+.idea/
