@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
-android:background="#000000">
+android:background="#ffffff">
 
     <ImageView
         android:layout_width="200dp"
@@ -31,12 +31,34 @@ android:background="#000000">
         android:layout_alignRight="@+id/buttonGET"
         android:layout_alignEnd="@+id/buttonGET" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set hour"
+        android:id="@+id/button_hours"
+        android:layout_below="@+id/buttonPOST"
+        android:layout_alignLeft="@+id/buttonPOST"
+        android:layout_alignStart="@+id/buttonPOST"
+        android:layout_alignRight="@+id/buttonPOST"
+        android:layout_alignEnd="@+id/buttonPOST" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set date"
+        android:id="@+id/button_date"
+        android:layout_below="@+id/button_hours"
+        android:layout_alignLeft="@+id/button_hours"
+        android:layout_alignStart="@+id/button_hours"
+        android:layout_alignRight="@+id/button_hours"
+        android:layout_alignEnd="@+id/button_hours" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView"
-        android:textColor="#FFFFFF"
-        android:layout_below="@+id/buttonPOST"
+        android:textColor="#000000"
+        android:layout_below="@+id/button_date"
         android:layout_marginTop="26dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -45,12 +67,5 @@ android:background="#000000">
         android:maxLines = "15"
         android:scrollbars = "vertical"/>
 
-    <Button
-        android:id="@+id/button_hours"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/buttonGET"
-        android:layout_toStartOf="@+id/imageView"
-        android:text="show hours" />
 
 </RelativeLayout>

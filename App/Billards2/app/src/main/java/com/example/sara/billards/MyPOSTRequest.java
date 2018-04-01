@@ -18,9 +18,8 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+
 class MyPOSTRequest extends JsonObjectRequest {
-    TextView tvHour1;
-    Button bHour1;
     private static final String TAG = "MyActivity";
 
     public MyPOSTRequest(String url, JSONObject jsonRequest,
@@ -29,33 +28,21 @@ class MyPOSTRequest extends JsonObjectRequest {
         super(Request.Method.POST, url, jsonRequest, listener, errorListener);
     }
 
-    public static JSONObject createSampleObject() {
-        CalenderActivity calenderactivity=new CalenderActivity();
-
-        String date=(calenderactivity.getDate());
-
-       Log.e(TAG," date from PostRequest class "+calenderactivity.getDate());
-
+    public static JSONObject createSampleObject(String date) {
         int tableId = 1;
         int userId = 1;
         int charge = 1;
+        int hour = 1;
 
-      int hour = 1;
-        int year = 2018;
         JSONObject sampleObject = new JSONObject();
 
         try {
-            //HoursActivity hoursActivity=new HoursActivity();
-           // String hour2 = hoursActivity.takeHour();
-
-           // Log.e(TAG, " hour from PostRequest class " + hour2);
-
             sampleObject = sampleObject.put("ID_USER", userId);
             sampleObject = sampleObject.put("ID_TABLE", tableId);
             sampleObject = sampleObject.put("CHARGE", charge);
             sampleObject = sampleObject.put("HOUR_FROM", hour);
             sampleObject = sampleObject.put("HOUR_TO", hour+1);
-            sampleObject = sampleObject.put("DATE", year+"-01-01");
+            sampleObject = sampleObject.put("DATE", date);
         } catch(JSONException exception) {
             exception.printStackTrace();
 
