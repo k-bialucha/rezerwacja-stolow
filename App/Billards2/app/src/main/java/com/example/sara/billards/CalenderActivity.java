@@ -20,7 +20,7 @@ public class CalenderActivity extends AppCompatActivity {
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                date= year+"/"+month+"/"+dayOfMonth; //format of date->date_id
+                date= year+"/"+(month+1)+"/"+dayOfMonth; //format of date->date_id
                 Toast.makeText(getBaseContext(),"Selected date:"+date, Toast.LENGTH_LONG).show();
                 Bundle bundle = new Bundle();
                 bundle.putString("date", date);
