@@ -11,7 +11,7 @@ const ReservationItem = props =>
     <ExpansionPanel>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
             <Typography variant="headline">
-                Rezeracja nr {props.id}
+                Rezerwacja nr {props.id}
             </Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
