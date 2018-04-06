@@ -46,10 +46,7 @@ class ReservationsContainer extends Component {
                 'accept': 'application/json'
             }
         })
-        .then( response => {
-            console.log('Response:', response);
-            return response.json()
-        } )
+        .then( response => response.json() )
         .then( json => this.setState({ reservations: json }) );
     }
     deleteReservationItem(key) {
