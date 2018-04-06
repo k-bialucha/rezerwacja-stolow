@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 
 import Reservations from './Reservations';
 
-const apiUrl = 'http://ec2-18-217-215-212.us-east-2.compute.amazonaws.com:8000/';
+const useLocalhost = true;
+const localhostUrl = 'http://localhost:8000/';
+const remoteUrl = 'http://ec2-18-217-215-212.us-east-2.compute.amazonaws.com:8000/';
+
+const apiUrl = useLocalhost ? localhostUrl : remoteUrl;
 const servicePath = 'testsite/api2';
 
 class ReservationsContainer extends Component {
