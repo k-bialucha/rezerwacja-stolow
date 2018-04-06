@@ -32,7 +32,7 @@ const Reservations = props => {
                 Rezerwacje:
             </Typography>
             <div className="Reservations-list">
-                {reservations}
+                {props.reservations.length ? reservations : <div>Brak rezerwacji [ładowanie...]</div>}
             </div>
         </Paper>
     );
