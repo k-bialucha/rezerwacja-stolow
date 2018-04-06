@@ -26,6 +26,7 @@ class ReservationView(APIView):
 			serializer.save()
 			return Response(serializer.data)
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 class ReservationsDetailView(APIView):
 	def get(self, request, pk):
 		testsite = get_object_or_404(Reservation, pk=pk)
@@ -35,28 +36,30 @@ class ReservationsDetailView(APIView):
 		testsite = get_object_or_404(Reservation, pk=pk)
 		testsite.delete()
 		return Response(status=status.HTTP_204_NO_CONTENT)
+
 class ReservationListViewSet(APIView):
 	def get(self, request):
 		queryset = ReservationList.objects.all().order_by('-DATE')
 		serializer = ReservationListSerializer(queryset, many=True)
 		return Response(serializer.data)
-
+	def delete(self, request, pk):
+		print('DELETE request with PK', pk)
+		testsite = get_object_or_404(ReservationList, pk=pk)
+		testsite.delete()
+		testsite.save()
+		return Response(status=status.HTTP_204_NO_CONTENT)
 	def put(self, request):
 		serializer = ReservationListSerializer(data=request.data)
 		if serializer.is_valid():
 			serializer.save()
 			return Response(serializer.data, status=status.HTTP_201_CREATED)
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
 	def post(self, request):
 		serializer = ReservationListSerializer(data=request.data)
 		if serializer.is_valid():
 			serializer.save()
 			return Response(serializer.data, status=status.HTTP_201_CREATED)
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
 
 class ReservationPriceViewSet(APIView):
 	def get(self, request):
