@@ -6,8 +6,14 @@ import ReservationItem from './ReservationItem';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 
+const sorter = (item1, item2) => {
+    const isFirstBigger = Number.parseInt(item1['ID_RES'], 10)>Number.parseInt(item2['ID_RES'], 10);
+    return isFirstBigger ? 1 : -1;
+};
+
 const Reservations = props => {
     const reservations = props.reservations
+        .sort(sorter)
         .map( (reservation, index) => 
             <ReservationItem 
                 key={index}
