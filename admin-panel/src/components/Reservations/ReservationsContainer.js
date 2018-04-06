@@ -48,6 +48,16 @@ class ReservationsContainer extends Component {
         } )
         .then( json => this.setState({ reservations: json }) );
     }
+    deleteReservationItem(key) {
+        const url = apiUrl + servicePath + '/' + key;
+        fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'accept': 'application/json'
+            }
+        })
+        .then( () => this.fetchReservations() );
+    }
     render() {
         return (
             <Reservations 
