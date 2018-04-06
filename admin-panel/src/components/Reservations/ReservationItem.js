@@ -28,6 +28,7 @@ const ReservationItem = props =>
                 color="secondary"
                 className={props.classes.deleteButton}
                 mini
+                onClick={() => props.deleteItem()}    
             >
                 <DeleteIcon />
             </Button>

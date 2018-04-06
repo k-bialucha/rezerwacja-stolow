@@ -23,6 +23,7 @@ const Reservations = props => {
                 endHour={reservation['HOUR_TO']}
                 tableId={reservation['ID_TABLE']}
                 userId={reservation['ID_USER']}
+                deleteItem={() => props.deleteReservationItem(reservation['ID_RES'])}
             />
         );
     return (

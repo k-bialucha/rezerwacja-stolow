@@ -63,6 +63,7 @@ class ReservationsContainer extends Component {
         return (
             <Reservations 
                 reservations={this.state.reservations}
+                deleteReservationItem={this.deleteReservationItem.bind(this)}
             />
         );
     }
