@@ -6,6 +6,9 @@ import ExpansionPanel, {
 } from 'material-ui/ExpansionPanel';
 import Typography from 'material-ui/Typography';
 import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
+import Button from 'material-ui/Button';
+import DeleteIcon from 'material-ui-icons/Delete';
+import { withStyles } from 'material-ui/styles';
 
 const ReservationItem = props =>
     <ExpansionPanel>
@@ -14,12 +17,33 @@ const ReservationItem = props =>
                 Rezerwacja nr {props.id}
             </Typography>
         </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
+        <ExpansionPanelDetails 
+            className={props.classes.details}
+        >
             <Typography>
                 Użytkownik: {props.userId} / Stół nr: {props.tableId} / {props.date}  [{props.startHour}-{props.endHour}]
             </Typography>
+            <Button 
+                variant="fab"
+                color="secondary"
+                className={props.classes.deleteButton}
+                mini
+            >
+                <DeleteIcon />
+            </Button>
         </ExpansionPanelDetails>
     </ExpansionPanel>
 ;
 
-export default ReservationItem;
+const classes = theme => ({
+    details: {
+        position: 'relative'
+    },
+    deleteButton: {
+        position: 'absolute',
+        bottom: '8px',
+        right: '8px'
+    }
+})
+
+export default withStyles(classes)(ReservationItem);
