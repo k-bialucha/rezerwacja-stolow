@@ -14,9 +14,9 @@ const sorter = (item1, item2) => {
 const Reservations = props => {
     const reservations = props.reservations
         .sort(sorter)
-        .map( (reservation, index) => 
+        .map(reservation => 
             <ReservationItem 
-                key={index}
+                key={reservation['ID_RES']}
                 id={reservation['ID_RES']}
                 date={reservation['DATE']}
                 startHour={reservation['HOUR_FROM']}
