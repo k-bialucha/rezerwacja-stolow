@@ -10,3 +10,6 @@ Skład grupy:
 * **Sara Dorociak**
 * **Szymon Fiedler** (piątek 11.15)
 * **Michał Musiał**
+
+Repozytorium z aplikacją mobilną:
+[saradorociak219190](https://github.com/saradorociak219190)/**[Billards2](https://github.com/saradorociak219190/Billards2)**
