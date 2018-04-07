@@ -26,7 +26,7 @@ urlpatterns = [
 	url(r'^$', TemplateView.as_view(template_name='todo/index.html')),
 	url(r'^testsite/api/$', ReservationView.as_view()),	
 	url(r'^testsite/api/(?P<pk>[0-9]+)/', ReservationsDetailView.as_view()),
+	url(r'^testsite/api2/(?P<pk>[0-9]+)/', ReservationListViewSet.as_view()),
 	url(r'^testsite/api2/$', ReservationListViewSet.as_view()),
  	url(r'^testsite/api3/$', ReservationPriceViewSet.as_view()),
-	
 ]
