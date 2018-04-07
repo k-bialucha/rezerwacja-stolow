@@ -14,6 +14,8 @@ from rest_framework import viewsets
 from testsite.models import ReservationPriceHour
 from testsite.serializers import ReservationPriceSerializer
 
+from testsite.models import TABLES
+from testsite.serializers import TablesSerializer
 
 class ReservationView(APIView):
 	def get(self, request):
@@ -41,7 +43,12 @@ class ReservationListViewSet(APIView):
 	def get(self, request):
 		queryset = ReservationList.objects.all().order_by('-DATE')
 		serializer = ReservationListSerializer(queryset, many=True)
-		return Response(serializer.data)
+		header = {
+			"Access-Control-Allow-Origin" : "*",
+			"Access-Control-Allow-Methods" : "GET,POST,PUT,DELETE,OPTIONS",
+			"Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
+		}
+		return Response(data=serializer.data, headers=header)
 	def delete(self, request, pk):
 		print('DELETE request with PK', pk)
 		testsite = get_object_or_404(ReservationList, pk=pk)
@@ -74,4 +81,14 @@ class ReservationPriceViewSet(APIView):
 			return Response(serializer.data)
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
+class TablesInfromation(APIView):
+	def get(self, request):
+		queryset=TABLES.objects.all()
+		serializer = TablesSerializer(queryset, many=True)
+		return Response(serializer.data)
+	def put(self, request):
+		serializer = TablesSerializer(data=request.data)
+		if serializer.is_valid():
+			serializer.save()
+			return Response(serializer.data)
+		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

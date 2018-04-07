@@ -16,10 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls import url, include
 from django.views.generic import TemplateView
-
+from testsite import views
 from .views import ReservationView, ReservationsDetailView
+from rest_framework.authtoken import views as tokenview
+from rest_framework.urlpatterns import format_suffix_patterns
+from django.contrib.auth.decorators import login_required
+from django.views.static import serve
+from django.conf import settings
+from django.conf.urls.static import static
 
-from .views import ReservationListViewSet, ReservationPriceViewSet
+from .views import ReservationListViewSet, ReservationPriceViewSet,TablesInfromation
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -29,4 +35,5 @@ urlpatterns = [
 	url(r'^testsite/api2/(?P<pk>[0-9]+)/', ReservationListViewSet.as_view()),
 	url(r'^testsite/api2/$', ReservationListViewSet.as_view()),
  	url(r'^testsite/api3/$', ReservationPriceViewSet.as_view()),
-]
+	url(r'^testsite/api4/$',TablesInfromation.as_view()),
+	]
