@@ -2,11 +2,31 @@ from rest_framework import serializers
 from testsite.models import Reservation
 from testsite.models import ReservationList
 from testsite.models import ReservationPriceHour
-from testsite.models import TABLES, Eventgroup
+from testsite.models import TABLES, Eventgroup, auth_user
 from django.contrib.auth.models import User
 from rest_framework import permissions
 from django.contrib.auth import get_user_model
 
+from django.contrib.auth.models import User
+from rest_framework.validators import UniqueValidator
+
+class UserSerializer(serializers.ModelSerializer):
+    email=serializers.EmailField(
+            required=True,
+            validators=[UniqueValidator(queryset=User.objects.all())]
+            )
+    username = serializers.CharField(
+            max_length=32,
+            validators=[UniqueValidator(queryset=User.objects.all())]
+            )
+    password = serializers.CharField(min_length=8, write_only=True)
+
+    def create(self,validated_data):
+        user = User.objects.create_user(validated_data['username'], validated_data['email'], validated_data['password'])
+        return user
+    class Meta:
+        model = User
+        fields = ('id','username','email','password')
 class ReservationSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Reservation
@@ -23,31 +43,8 @@ class TablesSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = TABLES
 		fields = '__all__'
-class UserSerializer(serializers.ModelSerializer):
-    ## password = serailizers.CharField(write_only=True)
-    reservation= serializers.PrimaryKeyRelatedField(many=True, queryset=ReservationList.objects.all())
-    class Meta:
-        model = User
-        fields = ('id', 'username','password', 'reservation')
-        write_only_fields = ('password',)
 
-class UserCreateSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True)
-    #images  = serializers.PrimaryKeyRelatedField(many=True, queryset=Img.objects.all())
-    def create(self, validated_data):
-        user = User.objects.create(
-            username=validated_data['username']
-        )
-        user.set_password(validated_data['password'])
-        user.save()
-        return user
-
-        
+class UsersListSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
-        fields = ('username','password')
-class GroupSerializer(serializers.ModelSerializer):
-    owner = serializers.ReadOnlyField(source='owner.username')
-    class Meta:
-        model = Eventgroup
-        fields = ( 'id','title','start_time', 'duration', 'owner')     
+        model = auth_user
+        fields = ('id','password','username','email','date_joined','is_active')

@@ -17,16 +17,9 @@ from django.contrib import admin
 from django.conf.urls import url, include
 from django.views.generic import TemplateView
 from testsite import views
-from .views import ReservationView, ReservationsDetailView
-from rest_framework.authtoken import views as tokenview
-from rest_framework.urlpatterns import format_suffix_patterns
-from django.contrib.auth.decorators import login_required
-from django.views.static import serve
-from django.conf import settings
-from django.conf.urls.static import static
-
+from .views import ReservationView, ReservationsDetailView, UsersListView
 from .views import ReservationListViewSet, ReservationPriceViewSet,TablesInfromation
-
+from rest_framework.authtoken import views as vw
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 	url(r'^$', TemplateView.as_view(template_name='todo/index.html')),
@@ -36,4 +29,9 @@ urlpatterns = [
 	url(r'^testsite/api2/$', ReservationListViewSet.as_view()),
  	url(r'^testsite/api3/$', ReservationPriceViewSet.as_view()),
 	url(r'^testsite/api4/$',TablesInfromation.as_view()),
+   	url(r'^userslist/$',UsersListView.as_view()),
+    	url(r'^register/$', views.Register.as_view()),
+  	url(r'^change_password/$', views.ChangePassword.as_view()),
+   	url(r'^login/$', vw.obtain_auth_token),
+
 	]

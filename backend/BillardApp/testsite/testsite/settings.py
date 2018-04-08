@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'testsite',
     'corsheaders',
+    'rest_framework.authtoken',
+    'django.contrib.sites',
 ]
 
 MIDDLEWARE = [
