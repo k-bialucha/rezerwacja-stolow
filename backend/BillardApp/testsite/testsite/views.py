@@ -15,38 +15,33 @@ from testsite.models import ReservationPriceHour
 from testsite.serializers import ReservationPriceSerializer
 
 from testsite.models import TABLES,auth_user
-from testsite.serializers import TablesSerializer,UsersListSerializer
+from testsite.serializers import TablesSerializer,UsersListSerializer,UserCreateSerializer
 
-
-
-from testsite.serializers import UserSerializer
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 
 from rest_framework import generics, permissions
 from django.views.generic import TemplateView
+from rest_framework.authtoken.views import ObtainAuthToken
+
+class CreateUserView (generics.CreateAPIView):
+    model = User
+    permission_classes = (permissions.AllowAny,)
+    serializer_class = UserCreateSerializer
 
 
+class CustomAuthToken(ObtainAuthToken):
 
-class Register(generics.CreateAPIView):
-	permission_classes = (permissions.AllowAny,)
-
-	def post(self, request, *args, **kwargs):
-		#New USer
-		username = request.POST.get('username')
-		email = request.POST.get('email')
-		password =request.POST.get('password')
-		first_name=request.POST.get('first_name')
-		last_name = request.POST.get('last_name')
-		user = User.objects.create_user(username, email, password)
-		user.first_name = first_name
-		user.last_name = last_name
-		user.save()
-
-		#GenerateToken
-		token=Token.objects.create(user=user)
-
-		return Response({'detail': 'User has been created with Token: ' + token.key})
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data,
+                                           context={'request': request})
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data['user']
+        token, created = Token.objects.get_or_create(user=user)
+        return Response({
+            'token': token.key,
+            'user_id': user.pk,
+         })
 
 
 class ChangePassword(generics.CreateAPIView):
@@ -56,22 +51,6 @@ class ChangePassword(generics.CreateAPIView):
 		user.set_password(request.POST.get('new_password'))
 		user.save()
 		return Response({'detail': 'Password has been saved.'})
-class UserCreate(APIView):
-    """ 
-    Creates the user. 
-    """
-
-    def post(self, request, format='json'):
-        serializer = UserSerializer(data=request.data)
-        if serializer.is_valid():
-            user = serializer.save()
-            if user:
-                token = Token.objects.create(user=user)
-                json = serializer.data
-                json['token'] = token.key
-                return Response(json, status=status.HTTP_201_CREATED)
-
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class ReservationView(APIView):
 	def get(self, request):

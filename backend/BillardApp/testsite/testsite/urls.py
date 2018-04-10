@@ -18,8 +18,8 @@ from django.conf.urls import url, include
 from django.views.generic import TemplateView
 from testsite import views
 from .views import ReservationView, ReservationsDetailView, UsersListView
-from .views import ReservationListViewSet, ReservationPriceViewSet,TablesInfromation
-from rest_framework.authtoken import views as vw
+from .views import ReservationListViewSet, ReservationPriceViewSet,TablesInfromation,CustomAuthToken, CreateUserView
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 	url(r'^$', TemplateView.as_view(template_name='todo/index.html')),
@@ -30,8 +30,7 @@ urlpatterns = [
  	url(r'^testsite/api3/$', ReservationPriceViewSet.as_view()),
 	url(r'^testsite/api4/$',TablesInfromation.as_view()),
    	url(r'^userslist/$',UsersListView.as_view()),
-    	url(r'^register/$', views.Register.as_view()),
+    	url(r'^register/$', views.CreateUserView.as_view()),
   	url(r'^change_password/$', views.ChangePassword.as_view()),
-   	url(r'^login/$', vw.obtain_auth_token),
-
+   	url(r'^login/$', CustomAuthToken.as_view()),
 	]

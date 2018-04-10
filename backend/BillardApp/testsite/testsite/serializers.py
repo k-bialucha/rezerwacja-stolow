@@ -2,7 +2,7 @@ from rest_framework import serializers
 from testsite.models import Reservation
 from testsite.models import ReservationList
 from testsite.models import ReservationPriceHour
-from testsite.models import TABLES, Eventgroup, auth_user
+from testsite.models import TABLES, auth_user
 from django.contrib.auth.models import User
 from rest_framework import permissions
 from django.contrib.auth import get_user_model
@@ -10,23 +10,34 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from rest_framework.validators import UniqueValidator
 
-class UserSerializer(serializers.ModelSerializer):
-    email=serializers.EmailField(
-            required=True,
-            validators=[UniqueValidator(queryset=User.objects.all())]
-            )
+class UserCreateSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(min_length=8,write_only=True)
+    email = serializers.EmailField(
+        required=True,
+        validators=[UniqueValidator(queryset=User.objects.all())]
+    )
     username = serializers.CharField(
-            max_length=32,
-            validators=[UniqueValidator(queryset=User.objects.all())]
-            )
-    password = serializers.CharField(min_length=8, write_only=True)
-
-    def create(self,validated_data):
-        user = User.objects.create_user(validated_data['username'], validated_data['email'], validated_data['password'])
+        max_length=32,
+        validators=[UniqueValidator(queryset=User.objects.all())]
+    )
+    #images  = serializers.PrimaryKeyRelatedField(many=True, queryset=Img.objects.all())
+    def create(self, validated_data):
+        user = User.objects.create(
+            username=validated_data['username'], email=validated_data['email']
+        )
+        user.set_password(validated_data['password'])
+        first_name= 'first_name'
+        last_name = 'last_name'
+        user.first_name = first_name
+        user.last_name = last_name
+        user.save()
         return user
+
+        
     class Meta:
         model = User
-        fields = ('id','username','email','password')
+        fields = ('username','password','email','last_name','first_name')
+
 class ReservationSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Reservation
