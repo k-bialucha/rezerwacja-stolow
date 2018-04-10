@@ -10,6 +10,8 @@ import Button from 'material-ui/Button';
 import DeleteIcon from 'material-ui-icons/Delete';
 import { withStyles } from 'material-ui/styles';
 
+import ReservationFieldsContainer from './ReservationFieldsContainer';
+
 const ReservationItem = props =>
     <ExpansionPanel>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
@@ -22,6 +24,9 @@ const ReservationItem = props =>
         >
             <Typography>
                 Użytkownik: {props.userId} / Stół nr: {props.tableId} / {props.date}  [{props.startHour}-{props.endHour}]
+            </Typography>
+            <Typography>
+                <ReservationFieldsContainer />
             </Typography>
             <Button 
                 variant="fab"
