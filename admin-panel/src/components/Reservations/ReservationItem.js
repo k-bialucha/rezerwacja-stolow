@@ -21,13 +21,12 @@ const ReservationItem = props =>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails 
             className={props.classes.details}
-        >
-            <Typography>
-                Użytkownik: {props.userId} / Stół nr: {props.tableId} / {props.date}  [{props.startHour}-{props.endHour}]
-            </Typography>
-            <Typography>
-                <ReservationFieldsContainer />
-            </Typography>
+        >       
+            <ReservationFieldsContainer 
+                userId={props.userId}
+                tableId={props.tableId}
+                date={props.date}
+            />
             <Button 
                 variant="fab"
                 color="secondary"
