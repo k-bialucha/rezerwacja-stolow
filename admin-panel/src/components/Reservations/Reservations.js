@@ -2,7 +2,7 @@ import React from 'react';
 
 import './Reservations.css';
 
-import ReservationItem from './ReservationItem';
+import ReservationItem from './ReservationItemContainer';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 
