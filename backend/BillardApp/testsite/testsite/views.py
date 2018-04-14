@@ -48,7 +48,7 @@ class ChangePassword(generics.CreateAPIView):
 	permission_classes=(permissions.IsAuthenticated,)
 	def post(self, request, *args, **kwargs):
 		user=get_object_or_404(User,username=request.user)
-		user.set_password(request.POST.get('new_password'))
+		user.set_password(request.data.get('new_password'))
 		user.save()
 		return Response({'detail': 'Password has been saved.'})
 
