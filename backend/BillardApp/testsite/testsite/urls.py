@@ -18,7 +18,7 @@ from django.conf.urls import url, include
 from django.views.generic import TemplateView
 from testsite import views
 from .views import ReservationView, ReservationsDetailView, UsersListView
-from .views import ReservationListViewSet, ReservationPriceViewSet,TablesInfromation,CustomAuthToken, CreateUserView
+from .views import ReservationListViewSet, ReservationPriceViewSet,TablesInfromation,CustomAuthToken, CreateUserView, UserReservationHistory
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -33,4 +33,5 @@ urlpatterns = [
     	url(r'^register/$', views.CreateUserView.as_view()),
   	url(r'^change_password/$', views.ChangePassword.as_view()),
    	url(r'^login/$', CustomAuthToken.as_view()),
+ 	url(r'^user_history/$', UserReservationHistory.as_view())
 	]

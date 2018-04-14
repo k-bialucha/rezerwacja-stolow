@@ -52,7 +52,16 @@ class ChangePassword(generics.CreateAPIView):
 		user.save()
 		return Response({'detail': 'Password has been saved.'})
 
+class UserReservationHistory(generics.CreateAPIView):
+	permission_classes=(permissions.IsAuthenticated,)
+	def get(self, request, *args, **kwargs):
+		user=get_object_or_404(User,username=request.user)
+		history=ReservationList.objects.filter(ID_USER=user.pk)
+		serializer = ReservationListSerializer(history, many=True)
+		return Response(serializer.data)
+
 class ReservationView(APIView):
+	permission_classes = (permissions.AllowAny,)
 	def get(self, request):
 		todos = Reservation.objects.all()
 		serializer = ReservationSerializer(todos, many=True)
@@ -65,6 +74,7 @@ class ReservationView(APIView):
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class ReservationsDetailView(APIView):
+	permission_classes = (permissions.AllowAny,)
 	def get(self, request, pk):
 		testsite = get_object_or_404(Reservation, pk=pk)
 		serializer = ReservationSerializer(testsite)
@@ -75,6 +85,7 @@ class ReservationsDetailView(APIView):
 		return Response(status=status.HTTP_204_NO_CONTENT)
 
 class ReservationListViewSet(APIView):
+	permission_classes = (permissions.AllowAny,)
 	def get(self, request):
 		queryset = ReservationList.objects.all().order_by('-DATE')
 		serializer = ReservationListSerializer(queryset, many=True)
@@ -104,6 +115,7 @@ class ReservationListViewSet(APIView):
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class ReservationPriceViewSet(APIView):
+	permission_classes = (permissions.AllowAny,)
 	def get(self, request):
 		queryset = ReservationPriceHour.objects.all()
 		serializer = ReservationPriceSerializer(queryset, many=True)
@@ -117,6 +129,7 @@ class ReservationPriceViewSet(APIView):
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class TablesInfromation(APIView):
+	permission_classes = (permissions.AllowAny,)
 	def get(self, request):
 		queryset=TABLES.objects.all()
 		serializer = TablesSerializer(queryset, many=True)
@@ -128,7 +141,7 @@ class TablesInfromation(APIView):
 			return Response(serializer.data)
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 class UsersListView(APIView):
-
+	permission_classes = (permissions.AllowAny,)
 	def get(self, request):
 		queryset=auth_user.objects.all()
 		serializer = UsersListSerializer(queryset, many=True)
