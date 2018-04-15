@@ -10,7 +10,8 @@ const ItemFields = props =>
                 label="ID użytkownika"
                 name="userId"
                 value={props.userId}
-                onChange={event => props.updateField(event)}
+                type="number"
+                onChange={props.updateField}
                 fullWidth
             />
         </Grid>
@@ -20,7 +21,7 @@ const ItemFields = props =>
                 name="date"
                 value={props.date}
                 type="date"
-                onChange={event => props.updateField(event)}
+                onChange={props.updateField}
                 fullWidth
             />
         </Grid>
@@ -29,11 +30,12 @@ const ItemFields = props =>
                 label="ID stołu"
                 name="tableId"
                 value={props.tableId}
-                onChange={event => props.updateField(event)}
+                type="number"
+                onChange={props.updateField}
                 fullWidth
             />
         </Grid>
     </Grid>
-    ;
+;
 
 export default ItemFields;
