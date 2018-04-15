@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ReservationItem from './ReservationItem';
+import Item from './Item';
 
 const FIELD_NAMES = {
     userId: 'ID_USER',
@@ -8,7 +8,7 @@ const FIELD_NAMES = {
     date: 'DATE'
 }
 
-class ReservationItemContainer extends React.PureComponent {
+class ItemContainer extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = { };
@@ -28,7 +28,7 @@ class ReservationItemContainer extends React.PureComponent {
     }
     render() {
         return (
-            <ReservationItem 
+            <Item 
                 {...this.props}
                 {...this.state}
                 updateItem={this.updateItem.bind(this)} 
@@ -38,4 +38,4 @@ class ReservationItemContainer extends React.PureComponent {
     }
 }
 
-export default ReservationItemContainer;
+export default ItemContainer;

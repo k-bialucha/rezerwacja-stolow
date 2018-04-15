@@ -3,7 +3,7 @@ import React from 'react';
 import TextField from 'material-ui/TextField';
 import Grid from 'material-ui/Grid';
 
-const ReservationFields = props =>
+const ItemFields = props =>
     <Grid container spacing={24}>
         <Grid item xs={6}>
             <TextField
@@ -36,4 +36,4 @@ const ReservationFields = props =>
     </Grid>
     ;
 
-export default ReservationFields;
+export default ItemFields;

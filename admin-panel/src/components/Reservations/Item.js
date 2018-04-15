@@ -5,15 +5,17 @@ import ExpansionPanel, {
     ExpansionPanelDetails,
 } from 'material-ui/ExpansionPanel';
 import Typography from 'material-ui/Typography';
-import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
 import Button from 'material-ui/Button';
+
 import DeleteIcon from 'material-ui-icons/Delete';
+import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
 import SaveIcon from 'material-ui-icons/Save';
+
 import { withStyles } from 'material-ui/styles';
 
-import ReservationFields from './ReservationFields';
+import ItemFields from './ItemFields';
 
-const ReservationItem = props =>
+const Item = props =>
     <ExpansionPanel>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
             <Typography variant="headline">
@@ -23,7 +25,7 @@ const ReservationItem = props =>
         <ExpansionPanelDetails 
             className={props.classes.details}
         >       
-            <ReservationFields
+            <ItemFields
                 userId={props.userId}
                 tableId={props.tableId}
                 date={props.date}
@@ -67,4 +69,4 @@ const classes = theme => ({
     }
 })
 
-export default withStyles(classes)(ReservationItem);
+export default withStyles(classes)(Item);
