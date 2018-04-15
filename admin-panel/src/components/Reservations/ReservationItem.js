@@ -10,7 +10,7 @@ import Button from 'material-ui/Button';
 import DeleteIcon from 'material-ui-icons/Delete';
 import { withStyles } from 'material-ui/styles';
 
-import ReservationFieldsContainer from './ReservationFieldsContainer';
+import ReservationFields from './ReservationFields';
 
 const ReservationItem = props =>
     <ExpansionPanel>
@@ -22,10 +22,11 @@ const ReservationItem = props =>
         <ExpansionPanelDetails 
             className={props.classes.details}
         >       
-            <ReservationFieldsContainer 
+            <ReservationFields
                 userId={props.userId}
                 tableId={props.tableId}
                 date={props.date}
+                updateField={props.updateField}
             />
             <Button 
                 variant="fab"
