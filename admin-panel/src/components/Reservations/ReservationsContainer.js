@@ -38,11 +38,23 @@ class ReservationsContainer extends Component {
         })
         .then( () => this.fetchReservations() );
     }
+    updateReservationItem(key, item) {
+        const url = apiUrl + servicePath + '/' + key + '/';
+        fetch(url, {
+            method: 'PUT',
+            body: JSON.stringify(item),
+            headers: {
+                'accept': 'application/json'
+            }
+        })
+        .then( () => this.fetchReservations() );
+    }
     render() {
         return (
             <Reservations 
                 reservations={this.state.reservations}
                 deleteReservationItem={this.deleteReservationItem.bind(this)}
+                updateReservationItem={this.updateReservationItem.bind(this)}
             />
         );
     }
