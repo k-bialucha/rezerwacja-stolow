@@ -54,7 +54,7 @@ class ChangePassword(generics.CreateAPIView):
 
 class UserReservationHistory(generics.CreateAPIView):
 	permission_classes=(permissions.IsAuthenticated,)
-	def get(self, request, *args, **kwargs):
+	def get(self, request):
 		user=get_object_or_404(User,username=request.user)
 		history=ReservationList.objects.filter(ID_USER=user.pk)
 		serializer = ReservationListSerializer(history, many=True)
@@ -83,6 +83,23 @@ class ReservationsDetailView(APIView):
 		testsite = get_object_or_404(Reservation, pk=pk)
 		testsite.delete()
 		return Response(status=status.HTTP_204_NO_CONTENT)
+
+class ReservationDetailListViewSet(APIView):
+	def get(self, request, pk):
+		testsite = get_object_or_404(ReservationList, pk=pk)
+		serializer = ReservationListSerializer(testsite)
+		return Response(serializer.data)
+	def delete(self, request, pk):
+		testsite = get_object_or_404(ReservationList, pk=pk)
+		testsite.delete()
+		return Response(status=status.HTTP_204_NO_CONTENT)
+	def put(self, request, pk):
+		print('Request PUT:', pk)
+		serializer = ReservationListSerializer(data=request.data)
+		if serializer.is_valid():
+			serializer.save()
+			return Response(serializer.data, status=status.HTTP_201_CREATED)
+		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class ReservationListViewSet(APIView):
 	permission_classes = (permissions.AllowAny,)
