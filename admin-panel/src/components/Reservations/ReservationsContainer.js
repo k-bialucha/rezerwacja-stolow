@@ -30,7 +30,7 @@ class ReservationsContainer extends Component {
     }
     deleteReservationItem(key) {
         const url = apiUrl + servicePath + '/' + key;
-        fetch(url, {
+        return fetch(url, {
             method: 'DELETE',
             headers: {
                 'accept': 'application/json'

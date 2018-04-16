@@ -32,6 +32,11 @@ class ItemContainer extends React.PureComponent {
         this.props.updateItem(this.state.itemToUpdate)
         .then(() => this.setState({ isItemLoading: false }))
     }
+    deleteItem() {
+        this.setState({isItemLoading: true})
+        this.props.deleteItem()
+        .then(() => this.setState({ isItemLoading: false }))
+    }
     render() {
         return (
             <Item 
@@ -39,6 +44,7 @@ class ItemContainer extends React.PureComponent {
                 {...this.state}
                 updateItem={this.updateItem.bind(this)} 
                 updateField={this.updateField.bind(this)} 
+                deleteItem={this.deleteItem.bind(this)} 
             />
         );
     }
