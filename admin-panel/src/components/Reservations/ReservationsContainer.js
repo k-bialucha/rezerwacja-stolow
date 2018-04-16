@@ -40,7 +40,7 @@ class ReservationsContainer extends Component {
     }
     updateReservationItem(key, item) {
         const url = apiUrl + servicePath + '/' + key + '/';
-        fetch(url, {
+        return fetch(url, {
             method: 'PUT',
             body: JSON.stringify(item),
             headers: {

@@ -26,7 +26,7 @@ const Reservations = props => {
                 deleteItem={() => props.deleteReservationItem(reservation['ID_RES'])}
                 updateItem={newFields => {
                     const updatedItem = { ...reservation, ...newFields }
-                    props.updateReservationItem(reservation['ID_RES'], updatedItem)}
+                    return props.updateReservationItem(reservation['ID_RES'], updatedItem)}
                 }
             />
         );

@@ -28,7 +28,9 @@ class ItemContainer extends React.PureComponent {
         });
     }
     updateItem() {
+        this.setState({isItemLoading: true})
         this.props.updateItem(this.state.itemToUpdate)
+        .then(() => this.setState({ isItemLoading: false }))
     }
     render() {
         return (
