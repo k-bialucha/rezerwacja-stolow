@@ -40,14 +40,16 @@ const Item = props =>
             <Button 
                 color="secondary"
                 mini
-                onClick={props.deleteItem}    
+                onClick={props.deleteItem}
+                disabled={props.isItemLoading} 
             >
                 <DeleteIcon /> Usuń
             </Button>
             <Button 
                 color="primary"
                 mini
-                onClick={props.updateItem}    
+                onClick={props.updateItem}
+                disabled={props.isItemLoading} 
             >
                 <SaveIcon /> Zapisz
             </Button>
