@@ -17,9 +17,14 @@ import ItemFields from './ItemFields';
 const Item = props =>
     <ExpansionPanel>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography variant="headline">
-                Rezerwacja nr {props.id}
-            </Typography>
+            <div>
+                <Typography variant="headline">
+                    Rezerwacja nr {props.id}
+                </Typography>
+                <Typography variant="subheading" color="primary">
+                    {props.date} / godz. {props.startHour}-{props.endHour}
+                </Typography>
+            </div>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>       
             <ItemFields
