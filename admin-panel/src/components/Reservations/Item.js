@@ -31,6 +31,8 @@ const Item = props =>
                 userId={props.userId}
                 tableId={props.tableId}
                 date={props.date}
+                startHour={props.startHour}
+                endHour={props.endHour}
                 updateField={props.updateField}
             />
         </ExpansionPanelDetails>

@@ -5,13 +5,17 @@ import Item from './Item';
 const FIELD_NAMES = {
     userId: 'ID_USER',
     tableId: 'ID_TABLE',
-    date: 'DATE'
+    date: 'DATE',
+    startHour: 'HOUR_FROM',
+    endHour: 'HOUR_TO'
 }
 
 class ItemContainer extends React.PureComponent {
     constructor(props) {
         super(props);
-        this.state = { };
+        this.state = { 
+            isItemLoading: false
+        };
     }
     updateField(event) {
         const { name, value } = event.target;

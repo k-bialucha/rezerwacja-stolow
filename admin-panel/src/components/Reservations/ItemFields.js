@@ -7,9 +7,9 @@ const ItemFields = props =>
     <Grid container spacing={24}>
         <Grid item xs={6}>
             <TextField
-                label="ID użytkownika"
-                name="userId"
-                value={props.userId}
+                label="ID stołu"
+                name="tableId"
+                value={props.tableId}
                 type="number"
                 onChange={props.updateField}
                 fullWidth
@@ -27,9 +27,19 @@ const ItemFields = props =>
         </Grid>
         <Grid item xs={6}>
             <TextField
-                label="ID stołu"
-                name="tableId"
-                value={props.tableId}
+                label="Godzina rozpoczęcia"
+                name="startHour"
+                value={props.startHour}
+                type="number"
+                onChange={props.updateField}
+                fullWidth
+            />
+        </Grid>
+        <Grid item xs={6}>
+            <TextField
+                label="Godzina zakończenia"
+                name="endHour"
+                value={props.endHour}
                 type="number"
                 onChange={props.updateField}
                 fullWidth
