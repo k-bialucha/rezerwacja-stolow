@@ -55,7 +55,7 @@ const tables = {
     },
 };
 
-const classes = {
+const classes = theme => ({
     card: {
       display: 'flex',
       justifyContent: 'space-around',
@@ -82,7 +82,11 @@ const classes = {
     playIcon: {
       height: 38,
       width: 38,
+    },
+    highlightedText: {
+        color: theme.palette.primary.main,
+        fontWeight: 700
     }
-}
+});
 
-export default withStyles(classes)(Item);
+export default withStyles(classes, { withTheme: true })(Item);
