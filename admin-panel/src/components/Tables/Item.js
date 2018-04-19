@@ -44,6 +44,16 @@ const Item = props => {
 );
 }
 
+const tables = {
+    1: {
+        name: 'POOL',
+        imageUrl: 'http://mrbilliards.com.au/wp-content/uploads/2014/05/garage_sale.jpg'
+    },
+    2: {
+        name: 'SNOOKER',
+        imageUrl: 'http://www.stixbilliard.club/assets/img/blogs/snooker.jpg'
+    },
+};
 
 const classes = {
     card: {
