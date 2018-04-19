@@ -17,10 +17,13 @@ const Item = props => {
                     Stół: {props.table['ID_TABLE']}
                 </Typography>
                 <Typography variant="subheading" color="textSecondary">
-                    Typ <Typography color="primary">{props.table['ID_TYPE']}</Typography>
+                    Typ: 
+                    <span className={props.classes.highlightedText}>
+                        {tables[props.table['ID_TYPE']].name}
+                    </span>
                 </Typography>
                 <Typography variant="subheading" color="textSecondary">
-                    Liczba miejc: {props.table['NUM_OF_SEATS']}
+                    Liczba miejsc: {props.table['NUM_OF_SEATS']}
                 </Typography>
             </CardContent>
             <div className={props.classes.controls}>
@@ -37,7 +40,7 @@ const Item = props => {
         </div>
         <CardMedia
             className={props.classes.cover}
-            image="http://www.stixbilliard.club/assets/img/blogs/snooker.jpg"
+            image={tables[props.table['ID_TYPE']].imageUrl}
             title="Snooker"
         />
         </Card>
