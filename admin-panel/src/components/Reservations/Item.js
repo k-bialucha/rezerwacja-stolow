@@ -7,6 +7,7 @@ import ExpansionPanel, {
 } from 'material-ui/ExpansionPanel';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
+import { withStyles } from 'material-ui/styles';
 
 import DeleteIcon from 'material-ui-icons/Delete';
 import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
@@ -15,7 +16,7 @@ import SaveIcon from 'material-ui-icons/Save';
 import ItemFields from './ItemFields';
 
 const Item = props =>
-    <ExpansionPanel>
+    <ExpansionPanel className={props.classes.expansionPanel} >
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
             <div>
                 <Typography variant="headline">
@@ -57,4 +58,10 @@ const Item = props =>
     </ExpansionPanel>
 ;
 
-export default Item;
+const classes = {
+    expansionPanel: {
+      margin: '10px 3px'
+    }
+};
+
+export default withStyles(classes)(Item);
