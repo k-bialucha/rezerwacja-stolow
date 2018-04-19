@@ -4,13 +4,18 @@ import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
 
+import Item from './Item';
+
 const Tables = props => 
     <Paper className={props.classes.tables}>
         <Typography variant="display1">
-            Stoły:
+            Dostępne stoły:
         </Typography>
         <Typography>
-            Tutaj znajdą się dostępne stoły
+            {
+                props.tables
+                    .map(table => <Item key={table['ID_TABLE']} table={table}/>)
+            }
         </Typography>
     </Paper>
 ;
@@ -20,7 +25,7 @@ const classes = {
         width: '60vw',
         minWidth: '450px',
         maxWidth: '1000px',
-        margin: '15px auto',
+        margin: '15px auto 70px auto',
         padding: '20px 30px'
     }
 }
