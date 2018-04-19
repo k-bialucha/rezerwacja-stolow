@@ -19,7 +19,10 @@ const Item = props =>
     <ExpansionPanel className={props.classes.expansionPanel} >
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
             <div>
-                <Typography variant="headline">
+                <Typography 
+                    variant="headline" 
+                    {...props.unconfirmed ? { color: 'secondary'} : {}}
+                >
                     Rezerwacja nr {props.id}
                 </Typography>
                 <Typography variant="subheading" color="primary">
