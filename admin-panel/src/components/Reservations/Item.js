@@ -9,9 +9,10 @@ import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import { withStyles } from 'material-ui/styles';
 
-import DeleteIcon from 'material-ui-icons/Delete';
 import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
+import DeleteIcon from 'material-ui-icons/Delete';
 import SaveIcon from 'material-ui-icons/Save';
+import ConfirmIcon from 'material-ui-icons/TouchApp';
 
 import ItemFields from './ItemFields';
 
@@ -57,6 +58,16 @@ const Item = props =>
             >
                 <SaveIcon /> Zapisz
             </Button>
+            {props.unconfirmed &&
+                <Button 
+                    color="secondary"
+                    variant="raised"
+                    mini
+                    disabled={props.isItemLoading} 
+                >
+                    <ConfirmIcon /> Potwierdź
+                </Button>
+            }
         </ExpansionPanelActions>
     </ExpansionPanel>
 ;
