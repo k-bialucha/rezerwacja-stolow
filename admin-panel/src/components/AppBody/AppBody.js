@@ -3,10 +3,18 @@ import React from 'react';
 import './AppBody.css';
 
 import ReservationsContainer from '../Reservations/ReservationsContainer';
+import TableContainer from './../Tables/TablesContainer';
 
-const AppBody = () =>
+const AppBody = props =>
     <div className="AppBody">
-        <ReservationsContainer />
+        {props.route === 'reservations' ?
+            <ReservationsContainer />
+            : null
+        }
+        {props.route === 'tables' ?
+            <TableContainer />
+            : null
+        }
     </div>
 ;
 
