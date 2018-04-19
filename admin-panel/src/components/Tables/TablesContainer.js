@@ -10,6 +10,15 @@ const apiUrl = useLocalhost ? localhostUrl : remoteUrl;
 const servicePath = 'testsite/api4';
 
 class TablesContainer extends React.PureComponent {
+    constructor(props) {
+        super(props);
+        this.state = {
+            tables: []
+        }
+    }
+    componentDidMount() {
+        this.fetchTables();
+    }
     fetchTables() {
         fetch(apiUrl+servicePath, {
             headers: {
@@ -20,7 +29,7 @@ class TablesContainer extends React.PureComponent {
         .then( json => this.setState({ tables: json }) );
     }
     render() {
-        return <Tables />
+        return <Tables tables={this.state.tables}/>
     }
 }
 
