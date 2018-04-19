@@ -3,9 +3,8 @@ import React from 'react';
 import Card, { CardContent, CardMedia } from 'material-ui/Card';
 import IconButton from 'material-ui/IconButton';
 import Typography from 'material-ui/Typography';
-import SkipPreviousIcon from 'material-ui-icons/SkipPrevious';
-import PlayArrowIcon from 'material-ui-icons/PlayArrow';
-import SkipNextIcon from 'material-ui-icons/SkipNext';
+import ModeEditIcon from 'material-ui-icons/ModeEdit';
+import BuildIcon from 'material-ui-icons/Build';
 import { withStyles } from 'material-ui/styles';
 
 const Item = props => {
@@ -27,14 +26,11 @@ const Item = props => {
                 </Typography>
             </CardContent>
             <div className={props.classes.controls}>
-                <IconButton aria-label="Previous">
-                    <SkipPreviousIcon />
+                <IconButton>
+                    <BuildIcon className={props.classes.icon} />
                 </IconButton>
-                <IconButton aria-label="Play/pause">
-                    <PlayArrowIcon className={props.classes.playIcon} />
-                </IconButton>
-                <IconButton aria-label="Next">
-                    <SkipNextIcon />
+                <IconButton>
+                    <ModeEditIcon className={props.classes.icon} />
                 </IconButton>
             </div>
         </div>
@@ -80,11 +76,12 @@ const classes = theme => ({
     controls: {
       display: 'flex',
       alignItems: 'center',
-      justifyContent: 'space-around'
+      justifyContent: 'space-around',
+      margin: '3px 10%'
     },
-    playIcon: {
-      height: 38,
-      width: 38,
+    icon: {
+      height: 34,
+      width: 34,
     },
     highlightedText: {
         color: theme.palette.primary.main,
