@@ -7,7 +7,10 @@ import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 
 const sorter = (item1, item2) => {
-    const isFirstBigger = Number.parseInt(item1['ID_RES'], 10)>Number.parseInt(item2['ID_RES'], 10);
+    const isDateLater = new Date(item1['DATE']) > new Date(item2['DATE']);
+    if (isDateLater) 
+        return 1
+    const isFirstBigger = Number.parseInt(item1['ID_RES'], 10) > Number.parseInt(item2['ID_RES'], 10);
     return isFirstBigger ? 1 : -1;
 };
 
