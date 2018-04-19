@@ -71,7 +71,7 @@ const classes = theme => ({
     },
     cover: {
       width: '30%',
-      margin: '5px'
+      margin: '2px'
     },
     controls: {
       display: 'flex',
