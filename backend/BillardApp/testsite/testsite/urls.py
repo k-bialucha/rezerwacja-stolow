@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.conf.urls import url, include
 from django.views.generic import TemplateView
 from testsite import views
-from .views import ReservationView, ReservationsDetailView, UsersListView
+from .views import ReservationView, ReservationsDetailView, UsersListView, UserSelfInfo
 from .views import ReservationListViewSet, ReservationPriceViewSet,TablesInfromation,CustomAuthToken, CreateUserView, UserReservationHistory,ReservationDetailListViewSet
 
 urlpatterns = [
@@ -33,5 +33,7 @@ urlpatterns = [
     	url(r'^register/$', views.CreateUserView.as_view()),
   	url(r'^change_password/$', views.ChangePassword.as_view()),
    	url(r'^login/$', CustomAuthToken.as_view()),
- 	url(r'^user_history/$', UserReservationHistory.as_view())
+ 	url(r'^user_history/$', UserReservationHistory.as_view()),
+  	url(r'^user_info/$', UserSelfInfo.as_view()),
+
 	]

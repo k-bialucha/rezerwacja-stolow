@@ -15,7 +15,7 @@ from testsite.models import ReservationPriceHour
 from testsite.serializers import ReservationPriceSerializer
 
 from testsite.models import TABLES,auth_user
-from testsite.serializers import TablesSerializer,UsersListSerializer,UserCreateSerializer
+from testsite.serializers import TablesSerializer,UsersListSerializer,UserCreateSerializer, UserSelfInfoSerializer
 
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
@@ -28,6 +28,15 @@ class CreateUserView (generics.CreateAPIView):
     model = User
     permission_classes = (permissions.AllowAny,)
     serializer_class = UserCreateSerializer
+
+class UserSelfInfo (APIView):
+	permission_classes=(permissions.IsAuthenticated,)
+	def get(self, request, *args, **kwargs):
+		user=get_object_or_404(User,username=request.user)
+		history=auth_user.objects.filter(id=user.pk)
+		serializer = UserSelfInfoSerializer(history, many=True)
+		return Response(serializer.data)
+
 
 
 class CustomAuthToken(ObtainAuthToken):

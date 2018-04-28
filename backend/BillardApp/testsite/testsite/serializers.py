@@ -10,6 +10,12 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from rest_framework.validators import UniqueValidator
 
+
+class UserSelfInfoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = auth_user
+        fields = ('username','email','last_name','first_name')   
+
 class UserCreateSerializer(serializers.ModelSerializer):
     password = serializers.CharField(min_length=8,write_only=True)
     email = serializers.EmailField(
