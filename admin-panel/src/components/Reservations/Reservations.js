@@ -2,7 +2,7 @@ import React from 'react';
 
 import './Reservations.css';
 
-import ReservationItem from './ReservationItem';
+import Item from './ItemContainer';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 
@@ -15,7 +15,7 @@ const Reservations = props => {
     const reservations = props.reservations
         .sort(sorter)
         .map(reservation => 
-            <ReservationItem 
+            <Item 
                 key={reservation['ID_RES']}
                 id={reservation['ID_RES']}
                 date={reservation['DATE']}
@@ -24,6 +24,10 @@ const Reservations = props => {
                 tableId={reservation['ID_TABLE']}
                 userId={reservation['ID_USER']}
                 deleteItem={() => props.deleteReservationItem(reservation['ID_RES'])}
+                updateItem={newFields => {
+                    const updatedItem = { ...reservation, ...newFields }
+                    return props.updateReservationItem(reservation['ID_RES'], updatedItem)}
+                }
             />
         );
     return (

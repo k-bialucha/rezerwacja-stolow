@@ -30,8 +30,19 @@ class ReservationsContainer extends Component {
     }
     deleteReservationItem(key) {
         const url = apiUrl + servicePath + '/' + key;
-        fetch(url, {
+        return fetch(url, {
             method: 'DELETE',
+            headers: {
+                'accept': 'application/json'
+            }
+        })
+        .then( () => this.fetchReservations() );
+    }
+    updateReservationItem(key, item) {
+        const url = apiUrl + servicePath + '/' + key + '/';
+        return fetch(url, {
+            method: 'PUT',
+            body: JSON.stringify(item),
             headers: {
                 'accept': 'application/json'
             }
@@ -43,6 +54,7 @@ class ReservationsContainer extends Component {
             <Reservations 
                 reservations={this.state.reservations}
                 deleteReservationItem={this.deleteReservationItem.bind(this)}
+                updateReservationItem={this.updateReservationItem.bind(this)}
             />
         );
     }
