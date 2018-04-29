@@ -15,7 +15,26 @@ const sorter = (item1, item2) => {
 };
 
 const Reservations = props => {
-    const reservations = props.reservations
+    const awaiting = props.awaitingReservations
+        .sort(sorter)
+        .map(reservation => 
+            <Item 
+                key={reservation['ID_RES']}
+                id={reservation['ID_RES']}
+                unconfirmed
+                date={reservation['DATE']}
+                startHour={reservation['HOUR_FROM']}
+                endHour={reservation['HOUR_TO']}
+                tableId={reservation['ID_TABLE']}
+                userId={reservation['ID_USER']}
+                deleteItem={() => props.deleteReservationItem(reservation['ID_RES'])}
+                updateItem={newFields => {
+                    const updatedItem = { ...reservation, ...newFields }
+                    return props.updateReservationItem(reservation['ID_RES'], updatedItem)}
+                }
+            />
+        );
+    const confirmed = props.confirmedReservations
         .sort(sorter)
         .map(reservation => 
             <Item 
@@ -36,10 +55,16 @@ const Reservations = props => {
     return (
         <Paper className="Reservations">
             <Typography variant="display1">
-                Rezerwacje:
+                Rezerwacje oczekujące na potwierdzenie:
             </Typography>
             <div className="Reservations-list">
-                {props.reservations.length ? reservations : <div>Brak rezerwacji [ładowanie...]</div>}
+                {props.reservations.length ? awaiting : <div>Brak rezerwacji [ładowanie...]</div>}
+            </div>
+            <Typography variant="display1">
+                Potwierdzone rezerwacje:
+            </Typography>
+            <div className="Reservations-list">
+                {props.reservations.length ? confirmed : <div>Brak rezerwacji [ładowanie...]</div>}
             </div>
         </Paper>
     );
