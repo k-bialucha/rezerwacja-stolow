@@ -5,6 +5,7 @@ import './Reservations.css';
 import Item from './ItemContainer';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
+import { LinearProgress } from 'material-ui/Progress';
 
 const sorter = (item1, item2) => {
     const isDateLater = new Date(item1['DATE']) > new Date(item2['DATE']);
@@ -58,13 +59,26 @@ const Reservations = props => {
                 Rezerwacje oczekujące na potwierdzenie:
             </Typography>
             <div className="Reservations-list">
-                {props.reservations.length ? awaiting : <div>Brak rezerwacji [ładowanie...]</div>}
+                {props.reservations.length ?
+                    awaiting
+                    :
+                    <div>
+                        Ładowanie rezerwacji 
+                        <LinearProgress color="secondary" variant="query" />
+                    </div>}
             </div>
             <Typography variant="display1">
                 Potwierdzone rezerwacje:
             </Typography>
             <div className="Reservations-list">
-                {props.reservations.length ? confirmed : <div>Brak rezerwacji [ładowanie...]</div>}
+                {props.reservations.length ? 
+                    confirmed 
+                    :
+                    <div>
+                        Ładowanie rezerwacji 
+                        <LinearProgress variant="query" />
+                    </div>
+                }
             </div>
         </Paper>
     );
