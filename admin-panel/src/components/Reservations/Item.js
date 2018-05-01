@@ -14,6 +14,8 @@ import DeleteIcon from 'material-ui-icons/Delete';
 import SaveIcon from 'material-ui-icons/Save';
 import ConfirmIcon from 'material-ui-icons/TouchApp';
 
+import { CircularProgress } from 'material-ui/Progress';
+
 import ItemFields from './ItemFields';
 
 const Item = props =>
@@ -66,6 +68,7 @@ const Item = props =>
                     disabled={props.isItemLoading} 
                 >
                     <ConfirmIcon /> Potwierdź
+                    {props.isItemLoading && <CircularProgress size={24} />}
                 </Button>
             }
         </ExpansionPanelActions>
