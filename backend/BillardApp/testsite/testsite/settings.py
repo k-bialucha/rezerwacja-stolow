@@ -25,6 +25,10 @@ SECRET_KEY = '=x%6z2dhg6rw(@av0+f$$6)li7_g0muflj!k_^_!htmrkyrr##'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+AWS_ACCESS_KEY_ID='AKIAJIJJ77FCGZHJ7OKQ'
+AWS_SECRET_ACCESS_KEY='2G9o1L0NmbsXx5fvVu2OgvHLbvitrHKdrjN7/cb'
+EMAIL_BACKEND = 'django_amazon_ses.EmailBackend'
+
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
@@ -47,6 +51,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework.authtoken',
     'django.contrib.sites',
+    'django_ses',
 ]
 
 MIDDLEWARE = [

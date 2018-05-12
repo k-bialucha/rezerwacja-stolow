@@ -17,8 +17,22 @@ from django.contrib import admin
 from django.conf.urls import url, include
 from django.views.generic import TemplateView
 from testsite import views
-from .views import ReservationView, ReservationsDetailView, UsersListView, UserSelfInfo
-from .views import ReservationListViewSet, ReservationPriceViewSet,TablesInfromation,CustomAuthToken, CreateUserView, UserReservationHistory,ReservationDetailListViewSet
+from .views import (
+	ReservationView, 
+	ReservationsDetailView, 
+	UsersListView, 
+	UserSelfInfo,
+	ReservationListViewSet, 
+	ReservationPriceViewSet,
+	TablesInfromation,
+	CustomAuthToken, 
+	CreateUserView,
+	UserReservationHistory,
+	ReservationDetailListViewSet,
+	ChangeName,
+	sendm,
+)
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -35,5 +49,6 @@ urlpatterns = [
    	url(r'^login/$', CustomAuthToken.as_view()),
  	url(r'^user_history/$', UserReservationHistory.as_view()),
   	url(r'^user_info/$', UserSelfInfo.as_view()),
-
+	url(r'^change_name/$',ChangeName.as_view()),
+	url(r'^send-email/$', sendm.as_view()),
 	]

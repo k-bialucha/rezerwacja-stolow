@@ -1,29 +1,59 @@
-from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from testsite.serializers import ReservationSerializer
-from testsite.models import Reservation
-from django.shortcuts import get_object_or_404
-
-from django.db import connection
-
-from testsite.models import ReservationList
-from testsite.serializers import ReservationListSerializer
-from rest_framework import viewsets
-
-from testsite.models import ReservationPriceHour
-from testsite.serializers import ReservationPriceSerializer
-
-from testsite.models import TABLES,auth_user
-from testsite.serializers import TablesSerializer,UsersListSerializer,UserCreateSerializer, UserSelfInfoSerializer
-
-from django.contrib.auth.models import User
+from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 
-from rest_framework import generics, permissions
+from django.shortcuts import get_object_or_404
+from django.db import connection
+from django.contrib.auth.models import User
 from django.views.generic import TemplateView
-from rest_framework.authtoken.views import ObtainAuthToken
 
+from rest_framework import (
+	status,
+	generics, 
+	permissions,
+	viewsets,
+)
+from testsite.serializers import (
+	ReservationListSerializer,
+	ReservationSerializer,
+	ReservationPriceSerializer,
+	TablesSerializer,
+	UsersListSerializer,
+	UserCreateSerializer, 
+	UserSelfInfoSerializer,
+)
+from testsite.models import (
+ReservationList,
+ReservationPriceHour,
+TABLES,
+auth_user,
+Reservation,
+)
+from django.core.mail import send_mail, EmailMessage
+from django.shortcuts import render
+
+
+class sendm (generics.CreateAPIView):
+	def send_email(request):
+		if request.method == 'POST':
+			try:
+				subject = request.POST['subject']
+				message = request.POST['message']
+				from_email = request.POST['from']
+				html_message = bool(request.POST.get('html-message', False))
+				recipient_list = [request.POST['to']]
+
+				email = EmailMessage(subject, message, from_email, recipient_list)
+				if html_message:
+					email.content_subtype = 'html'
+					email.send()
+			except KeyError:
+				return HttpResponse('Please fill in all fields')
+
+			return HttpResponse('Email sent :)')
+		else:
+			return render(request, 'send-email.html')
 class CreateUserView (generics.CreateAPIView):
     model = User
     permission_classes = (permissions.AllowAny,)
@@ -60,6 +90,15 @@ class ChangePassword(generics.CreateAPIView):
 		user.set_password(request.data.get('new_password'))
 		user.save()
 		return Response({'detail': 'Password has been saved.'})
+
+class ChangeName(generics.CreateAPIView):
+	permission_classes=(permissions.IsAuthenticated,)
+	def post(self,request,*args,**kwargs):
+		user=get_object_or_404(User,username=request.user)
+		user.first_name = request.data.get('first_name')
+		user.last_name = request.data.get('last_name')
+		user.save()
+		return Response({'detail': 'First Name and Last name has been saved', 'user_id': user.pk, 'Username': user.username})
 
 class UserReservationHistory(generics.CreateAPIView):
 	permission_classes=(permissions.IsAuthenticated,)
