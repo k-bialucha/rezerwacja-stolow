@@ -65,6 +65,7 @@ const Item = props =>
                     color="secondary"
                     variant="raised"
                     mini
+                    onClick={props.confirmItem}
                     disabled={props.isItemLoading} 
                 >
                     <ConfirmIcon /> Potwierdź
