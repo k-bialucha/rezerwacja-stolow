@@ -5,7 +5,8 @@ import './Reservations.css';
 import Item from './ItemContainer';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
-import { LinearProgress } from 'material-ui/Progress';
+
+import ReservationsLoading from './ReservationsLoading';
 
 const sorter = (item1, item2) => {
     const isDateLater = new Date(item1['DATE']) > new Date(item2['DATE']);
@@ -55,32 +56,33 @@ const Reservations = props => {
         );
     return (
         <Paper className="Reservations">
-            <Typography variant="display1">
-                Rezerwacje oczekujące na potwierdzenie:
-            </Typography>
-            <div className="Reservations-list">
-                {props.areReservationsLoaded ?
-                    awaiting
-                    :
-                    <div>
-                        Ładowanie rezerwacji 
-                        <LinearProgress color="secondary" variant="query" />
+            {props.areReservationsLoaded ?
+                null
+                :
+                <ReservationsLoading />
+            }
+            {awaiting.length > 0 ?
+                <React.Fragment>
+                    <Typography variant="display1">
+                        Rezerwacje oczekujące na potwierdzenie:
+                    </Typography>
+                    <div className="Reservations-list">
+                        { awaiting }
                     </div>
-                }
-            </div>
-            <Typography variant="display1">
-                Potwierdzone rezerwacje:
-            </Typography>
-            <div className="Reservations-list">
-                {props.areReservationsLoaded ? 
-                    confirmed 
-                    :
-                    <div>
-                        Ładowanie rezerwacji 
-                        <LinearProgress variant="query" />
+                </React.Fragment>
+                : null
+            }
+            {confirmed.length > 0 ?
+                <React.Fragment>
+                    <Typography variant="display1">
+                        Potwierdzone rezerwacje:
+                    </Typography>
+                    <div className="Reservations-list">
+                        { confirmed }
                     </div>
-                }
-            </div>
+                </React.Fragment>
+                : null
+            }
         </Paper>
     );
 }
