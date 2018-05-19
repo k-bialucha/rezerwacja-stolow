@@ -58,9 +58,9 @@ class ReservationsContainer extends Component {
             .filter(res => res['CONFIRMED']);
         return (
             <Reservations 
-                reservations={this.state.reservations}
                 confirmedReservations={confirmedReservations}
                 awaitingReservations={awaitingReservations}
+                areReservationsLoaded={!!this.state.reservations.length}
                 deleteReservationItem={this.deleteReservationItem.bind(this)}
                 updateReservationItem={this.updateReservationItem.bind(this)}
             />

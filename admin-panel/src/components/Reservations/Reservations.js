@@ -59,19 +59,20 @@ const Reservations = props => {
                 Rezerwacje oczekujące na potwierdzenie:
             </Typography>
             <div className="Reservations-list">
-                {props.reservations.length ?
+                {props.areReservationsLoaded ?
                     awaiting
                     :
                     <div>
                         Ładowanie rezerwacji 
                         <LinearProgress color="secondary" variant="query" />
-                    </div>}
+                    </div>
+                }
             </div>
             <Typography variant="display1">
                 Potwierdzone rezerwacje:
             </Typography>
             <div className="Reservations-list">
-                {props.reservations.length ? 
+                {props.areReservationsLoaded ? 
                     confirmed 
                     :
                     <div>
