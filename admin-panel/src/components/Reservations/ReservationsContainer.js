@@ -50,9 +50,17 @@ class ReservationsContainer extends Component {
         .then( () => this.fetchReservations() );
     }
     render() {
+        const comingReservations = this.state.reservations
+            .filter(res => new Date(res['DATE']) > Date.now());
+        const awaitingReservations = comingReservations
+            .filter(res => !res['CONFIRMED']);
+        const confirmedReservations = comingReservations
+            .filter(res => res['CONFIRMED']);
         return (
             <Reservations 
-                reservations={this.state.reservations}
+                confirmedReservations={confirmedReservations}
+                awaitingReservations={awaitingReservations}
+                areReservationsLoaded={!!this.state.reservations.length}
                 deleteReservationItem={this.deleteReservationItem.bind(this)}
                 updateReservationItem={this.updateReservationItem.bind(this)}
             />
