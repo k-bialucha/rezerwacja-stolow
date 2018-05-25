@@ -6,14 +6,18 @@ import AcountIcon from 'material-ui-icons/AccountCircle';
 import SignIn from './SignIn';
 
 class SignInContainer extends React.Component {
-    state = {
-        isOpen: false,
+    constructor(props) {
+        super(props);
+        this.state = {
+            isWindowOpen: true,
+        }
+    }
     }
     handleClickOpen = () => {
-        this.setState({ isOpen: true });
+        this.setState({ isWindowOpen: true });
     }
     handleClose = () => {
-        this.setState({ isOpen: false });
+        this.setState({ isWindowOpen: false });
     }
     render() {
         return (
@@ -22,7 +26,7 @@ class SignInContainer extends React.Component {
                     <AcountIcon />
                 </IconButton>
                 <SignIn 
-                    isOpen={this.state.isOpen}
+                    isOpen={this.state.isWindowOpen}
                     handleClose={this.handleClose}
                 />
             </React.Fragment>
