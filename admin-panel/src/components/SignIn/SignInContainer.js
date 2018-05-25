@@ -10,8 +10,14 @@ class SignInContainer extends React.Component {
         super(props);
         this.state = {
             isWindowOpen: true,
+            username: '',
+            password: '',
         }
-    }
+    updateField(event) {
+        const { name, value } = event.target;
+        this.setState({
+            [name]: value
+        });
     }
     handleClickOpen = () => {
         this.setState({ isWindowOpen: true });
@@ -28,6 +34,9 @@ class SignInContainer extends React.Component {
                 <SignIn 
                     isOpen={this.state.isWindowOpen}
                     handleClose={this.handleClose}
+                    updateField={this.updateField.bind(this)}
+                    username={this.state.username}
+                    password={this.state.password}
                 />
             </React.Fragment>
         );

@@ -21,15 +21,18 @@ const SignIn = props =>
         <DialogContent>
             <TextField
                 autoFocus
+                value={props.username}
+                onChange={props.updateField}
                 margin="dense"
-                id="name"
-                label="Email"
-                type="email"
+                name="username"
+                label="Login"
                 fullWidth
             />
             <TextField
+                value={props.password}
+                onChange={props.updateField}
                 margin="dense"
-                id="password"
+                name="password"
                 label="Hasło"
                 type="password"
                 fullWidth
