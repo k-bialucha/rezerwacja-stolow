@@ -42,7 +42,7 @@ const SignIn = props =>
             <Button onClick={props.handleClose} color="primary">
                 Anuluj
             </Button>
-            <Button onClick={props.handleClose} color="secondary">
+            <Button onClick={props.handleClose} color="primary" variant="raised" >
                 Zaloguj
             </Button>
         </DialogActions>
