@@ -9,7 +9,7 @@ class SignInContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isWindowOpen: true,
+            isWindowOpen: false,
             username: '',
             password: '',
         }
