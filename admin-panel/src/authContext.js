@@ -11,15 +11,16 @@ const Provider = props =>
         {props.children}
     </Context.Provider>
 
-const Consumer = Component => 
-    <Context.Consumer>
-      {({ state, actions }) =>
-        <Component {...Component.props} ctxTest={state} />
-      }
-    </Context.Consumer>
+const withAuthContext = WrappedComponent => 
+      props =>
+        <Context.Consumer>
+            {auth =>
+                <WrappedComponent {...props} auth={auth} />
+            }
+        </Context.Consumer>
 ;
 
 export {
     Provider,
-    Consumer
+    withAuthContext
 }
