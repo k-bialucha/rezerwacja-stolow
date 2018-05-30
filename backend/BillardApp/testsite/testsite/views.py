@@ -73,6 +73,33 @@ class ChangePassword(generics.CreateAPIView):
 		user.save()
 		return Response({'detail': 'Password has been saved.'})
 
+class ForgetPassword(generics.CreateAPIView):
+	permission_classes = (permissions.AllowAny,)
+	def post(self,request,*args,**kwargs):
+		user=get_object_or_404(User,username=request.data.get('username'))
+		subject = 'Przypomnienie hasla na bilardapp'
+		from_email= settings.EMAIL_HOST_USER
+		to_email = [user.email]
+		password = User.objects.make_random_password()
+		user.set_password(password)
+		signup_message = "Przypomnienie hasła na bilardapp.\nWygenerowaliśmy nowe hasło, zmień je po zalogowaniu do aplikacji w zakladce Zmień Hasło\nNowe Hasło: %s \n Wiadomość wygenerowana automatycznie, prosimy na nią nie odpowiadać.\nPozdrawiamy,\nBilardApp." % (password)
+		send_mail(subject=subject,message=signup_message,from_email=from_email,recipient_list=to_email, fail_silently=False)
+		user.save()
+		return Response({'detail': 'Password has been changed.'})
+	def put(self,request,*args,**kwargs):
+		user=get_object_or_404(User,username=request.data.get('username'))
+		subject = 'Przypomnienie hasla na bilardapp'
+		from_email= settings.EMAIL_HOST_USER
+		to_email = [user.email]
+		password = User.objects.make_random_password()
+		user.set_password(password)
+		signup_message = "Przypomnienie hasła na bilardapp.\nWygenerowaliśmy nowe hasło, zmień je po zalogowaniu do aplikacji w zakladce Zmień Hasło\nNowe Hasło: %s \n Wiadomość wygenerowana automatycznie, prosimy na nią nie odpowiadać.\nPozdrawiamy,\nBilardApp." % (password)
+		send_mail(subject=subject,message=signup_message,from_email=from_email,recipient_list=to_email, fail_silently=False)
+		user.save()
+		return Response({'detail': 'Password has been changed.'})
+
+		
+
 class ChangeName(generics.CreateAPIView):
 	permission_classes=(permissions.IsAuthenticated,)
 	def post(self,request,*args,**kwargs):

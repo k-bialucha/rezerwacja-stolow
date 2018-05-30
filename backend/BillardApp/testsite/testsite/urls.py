@@ -30,9 +30,10 @@ from .views import (
 	UserReservationHistory,
 	ReservationDetailListViewSet,
 	ChangeName,
+	ForgetPassword,
 	
 )
-
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -50,5 +51,6 @@ urlpatterns = [
  	url(r'^user_history/$', UserReservationHistory.as_view()),
   	url(r'^user_info/$', UserSelfInfo.as_view()),
 	url(r'^change_name/$',ChangeName.as_view()),
+	url(r'^forget_password/$',ForgetPassword.as_view()),
 	
 	]
