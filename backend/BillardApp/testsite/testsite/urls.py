@@ -30,7 +30,7 @@ from .views import (
 	UserReservationHistory,
 	ReservationDetailListViewSet,
 	ChangeName,
-	sendm,
+	
 )
 
 
@@ -50,5 +50,5 @@ urlpatterns = [
  	url(r'^user_history/$', UserReservationHistory.as_view()),
   	url(r'^user_info/$', UserSelfInfo.as_view()),
 	url(r'^change_name/$',ChangeName.as_view()),
-	url(r'^send-email/$', sendm.as_view()),
+	
 	]

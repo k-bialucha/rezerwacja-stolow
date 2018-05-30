@@ -1,3 +1,4 @@
+import os
 """
 Django settings for testsite project.
 
@@ -27,7 +28,9 @@ DEBUG = True
 
 AWS_ACCESS_KEY_ID='AKIAJIJJ77FCGZHJ7OKQ'
 AWS_SECRET_ACCESS_KEY='2G9o1L0NmbsXx5fvVu2OgvHLbvitrHKdrjN7/cb'
-EMAIL_BACKEND = 'django_amazon_ses.EmailBackend'
+
+
+
 
 ALLOWED_HOSTS = [
     'localhost',
@@ -36,6 +39,11 @@ ALLOWED_HOSTS = [
     '18.217.215.212'
 ]
 
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'bilardapp@gmail.com'
+EMAIL_HOST_PASSWORD = os.getenv('G_PASS')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 
 # Application definition
 
@@ -50,8 +58,8 @@ INSTALLED_APPS = [
     'testsite',
     'corsheaders',
     'rest_framework.authtoken',
-    'django.contrib.sites',
-    'django_ses',
+   
+    
 ]
 
 MIDDLEWARE = [

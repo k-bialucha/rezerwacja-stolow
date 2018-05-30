@@ -8,6 +8,9 @@ from django.db import connection
 from django.contrib.auth.models import User
 from django.views.generic import TemplateView
 
+from django.core.mail import send_mail
+from django.conf import settings
+
 from rest_framework import (
 	status,
 	generics, 
@@ -30,30 +33,9 @@ TABLES,
 auth_user,
 Reservation,
 )
-from django.core.mail import send_mail, EmailMessage
-from django.shortcuts import render
 
 
-class sendm (generics.CreateAPIView):
-	def send_email(request):
-		if request.method == 'POST':
-			try:
-				subject = request.POST['subject']
-				message = request.POST['message']
-				from_email = request.POST['from']
-				html_message = bool(request.POST.get('html-message', False))
-				recipient_list = [request.POST['to']]
 
-				email = EmailMessage(subject, message, from_email, recipient_list)
-				if html_message:
-					email.content_subtype = 'html'
-					email.send()
-			except KeyError:
-				return HttpResponse('Please fill in all fields')
-
-			return HttpResponse('Email sent :)')
-		else:
-			return render(request, 'send-email.html')
 class CreateUserView (generics.CreateAPIView):
     model = User
     permission_classes = (permissions.AllowAny,)
@@ -150,7 +132,8 @@ class ReservationDetailListViewSet(APIView):
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class ReservationListViewSet(APIView):
-	permission_classes = (permissions.AllowAny,)
+	#permission_classes = (permissions.AllowAny,)
+	permission_classes=(permissions.IsAuthenticated,)
 	def get(self, request):
 		queryset = ReservationList.objects.all().order_by('-DATE')
 		serializer = ReservationListSerializer(queryset, many=True)
@@ -166,16 +149,45 @@ class ReservationListViewSet(APIView):
 		testsite.delete()
 		testsite.save()
 		return Response(status=status.HTTP_204_NO_CONTENT)
-	def put(self, request):
+	def put(self, request,*args,**kwargs):
 		serializer = ReservationListSerializer(data=request.data)
 		if serializer.is_valid():
 			serializer.save()
+			stol = request.data.get('ID_TABLE')
+			date = request.data.get('DATE')
+			h_from=request.data.get('HOUR_FROM')
+			h_to= request.data.get('HOUR_TO')
+			oplata = request.data.get('CHARGE')
+			user = get_object_or_404(User,username=request.user)
+			subject = 'Potwierdzenie rezerwacji dokonanej na bilardapp'
+			from_email= settings.EMAIL_HOST_USER
+			to_email = [user.email]
+			id_res = serializer.data['ID_RES']
+			imie = user.first_name
+			signup_message = "Dziękujemy %s za dokonanie rezerwacji!\nPoniżej znajdują się informacje o rezerwacji:\n ID Rezerwacji: %d,\n Stół: %s, \n Data: %s,\n Godzina od: %s do %s,\n Opłata: %s \nZapraszamy do klubu 15 minut przed dokonaną rezerwacją w celu jej potwierdzenia.\nDziekujemy i zapraszamy ponownie do skorzystania z naszych usług.\nProsimy nie odpowiadać na ten email.\nPozdrawiamy,\nBilardApp" % (imie,id_res,stol,date,h_from,h_to, oplata)  
+			send_mail(subject=subject,message=signup_message,from_email=from_email,recipient_list=to_email, fail_silently=False)
+
 			return Response(serializer.data, status=status.HTTP_201_CREATED)
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 	def post(self, request):
 		serializer = ReservationListSerializer(data=request.data)
 		if serializer.is_valid():
 			serializer.save()
+			stol = request.data.get('ID_TABLE')
+			date = request.data.get('DATE')
+			h_from=request.data.get('HOUR_FROM')
+			h_to= request.data.get('HOUR_TO')
+			oplata = serializer.data['CHARGE']
+			user = get_object_or_404(User,username=request.user)
+			subject = 'Potwierdzenie rezerwacji dokonanej na bilardapp'
+			from_email= settings.EMAIL_HOST_USER
+			to_email = [user.email]
+			id_res = serializer.data['ID_RES']
+			imie = user.first_name
+			signup_message = "Dziękujemy %s za dokonanie rezerwacji!\nPoniżej znajdują się informacje o rezerwacji:\n ID Rezerwacji: %d,\n Stół: %s, \n Data: %s,\n Godzina od: %s do %s,\n Opłata: %s \nZapraszamy do klubu 15 minut przed dokonaną rezerwacją w celu jej potwierdzenia.\nDziekujemy i zapraszamy ponownie do skorzystania z naszych usług.\nProsimy nie odpowiadać na ten email.\nPozdrawiamy,\nBilardApp" % (imie,id_res,stol,date,h_from,h_to, oplata)  
+			send_mail(subject=subject,message=signup_message,from_email=from_email,recipient_list=to_email, fail_silently=False)
+
+			
 			return Response(serializer.data, status=status.HTTP_201_CREATED)
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -185,7 +197,6 @@ class ReservationPriceViewSet(APIView):
 		queryset = ReservationPriceHour.objects.all()
 		serializer = ReservationPriceSerializer(queryset, many=True)
 		return Response(serializer.data)
-
 	def put(self, request):
 		serializer = ReservationPriceSerializer(data=request.data)
 		if serializer.is_valid():
