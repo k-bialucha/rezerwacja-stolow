@@ -41,7 +41,11 @@ class SignInContainer extends React.PureComponent {
     render() {
         return (
             <React.Fragment>
-                <IconButton color="inherit" aria-label="Menu" onClick={this.handleClickOpen}>
+                <IconButton 
+                    color={this.props.auth.isAuthenticated ? 'default' : 'secondary'}
+                    aria-label="Menu"
+                    onClick={this.handleClickOpen}
+                >
                     <AcountIcon />
                 </IconButton>
                 <SignIn 
