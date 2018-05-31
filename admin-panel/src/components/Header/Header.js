@@ -5,7 +5,7 @@ import './Header.css';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
-import Authentication from './../SignIn/Authentication';
+import Authentication from './../Authentication/Authentication';
 
 const Header = () =>
     <AppBar position="static">

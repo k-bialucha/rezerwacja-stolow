@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { withAuthContext } from '../../authContext';
-
 import SignIn from './SignIn';
 
 class SignInContainer extends React.PureComponent {
