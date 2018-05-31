@@ -39,13 +39,18 @@ class AuthProvider extends React.PureComponent {
             return json.token;
         });
     }
+    signOut() {
+        localStorage.removeItem('apiToken');
+        this.setState({ token: undefined })
+    }
     render() {
         return (
             <Context.Provider
                 value={{
                     token: this.state.token,
                     isAuthenticated: !!this.state.token,
-                    signIn: this.signIn.bind(this)
+                    signIn: this.signIn.bind(this),
+                    signOut: this.signOut.bind(this)
                 }}
             >
                 {this.props.children}
