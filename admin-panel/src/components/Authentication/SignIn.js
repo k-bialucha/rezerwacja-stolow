@@ -12,6 +12,7 @@ const SignIn = props =>
     <Dialog
         open={props.isOpen}
         onClose={props.handleClose}
+        disableBackdropClick
         aria-labelledby="form-dialog-title"
     >
         <DialogTitle id="form-dialog-title">
