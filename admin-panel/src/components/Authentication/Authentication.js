@@ -15,6 +15,10 @@ class Authentication extends React.PureComponent {
             openWindow: undefined
         }
     }
+    componentDidMount() {
+        if (!this.props.auth.isAuthenticated)
+            this.setState({ openWindow: 'signIn' });
+    }
     handleClickOpen() {
         const windowToOpen = this.props.auth.isAuthenticated ? 'userPanel' : 'signIn';
         this.setState({ openWindow: windowToOpen })
