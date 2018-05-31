@@ -44,6 +44,7 @@ class AuthProvider extends React.PureComponent {
             <Context.Provider
                 value={{
                     token: this.state.token,
+                    isAuthenticated: !!this.state.token,
                     signIn: this.signIn.bind(this)
                 }}
             >
