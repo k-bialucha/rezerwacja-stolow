@@ -5,7 +5,7 @@ import './Header.css';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
-import SignInContainer from './../SignIn/SignInContainer';
+import Authentication from './../SignIn/Authentication';
 
 const Header = () =>
     <AppBar position="static">
@@ -13,7 +13,7 @@ const Header = () =>
             <Typography variant="title" color="inherit" className="Header__title">
                 Admin Panel
             </Typography>
-            <SignInContainer />
+            <Authentication />
         </Toolbar>
     </AppBar>
 ;
