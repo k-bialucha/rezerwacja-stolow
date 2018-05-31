@@ -25,6 +25,7 @@ from testsite.serializers import (
 	UsersListSerializer,
 	UserCreateSerializer, 
 	UserSelfInfoSerializer,
+	ReservationDoneReservation,
 )
 from testsite.models import (
 ReservationList,
@@ -157,7 +158,21 @@ class ReservationDetailListViewSet(APIView):
 			serializer.save()
 			return Response(serializer.data, status=status.HTTP_201_CREATED)
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
+	def patch(self,request,pk):
+		testsite=get_object_or_404(ReservationList,pk=pk)
+		serializer=ReservationDoneReservation(testsite,data={'CONFIRMED': 'True'},partial=True)
+		if serializer.is_valid():
+			serializer.save()
+			id_usera=serializer.data['ID_USER']
+			user=get_object_or_404(User,id=id_usera)
+			id_rezerwacji=serializer.data['ID_RES']
+			to_email=[user.email]
+			from_email=settings.EMAIL_HOST_USER
+			subject="Twoja rezerwacja nr. %s została anulowana przez administratora" % (id_rezerwacji)
+			message_to_send="Bardzo przepraszamy, ale twoja rezerwacja\nnumer=%s\nzostała anulowana przez właściela klubu.\n W celu dalszych informacji prosimy o kontakt telefoniczny: 111-111-111." % (id_rezerwacji)
+			send_mail(subject=subject,message=message_to_send,from_email=from_email,recipient_list=to_email, fail_silently=False)
+			return Response(status=status.HTTP_201_CREATED)
+		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 class ReservationListViewSet(APIView):
 	#permission_classes = (permissions.AllowAny,)
 	permission_classes=(permissions.IsAuthenticated,)

@@ -52,6 +52,11 @@ class ReservationListSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = ReservationList
 		fields = '__all__'
+class ReservationDoneReservation(serializers.ModelSerializer):
+	class Meta:
+		model = ReservationList
+		fields = 'ID_RES','CONFIRMED','ID_USER'
+
 class ReservationPriceSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = ReservationPriceHour
