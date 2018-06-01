@@ -27,7 +27,7 @@ const UserPanel = props =>
             </Button>
             <Button 
                 onClick={props.signOut} 
-                color="secondary"
+                color="primary"
                 variant="raised" 
                 disabled={!props.isAuthenticated}
             >
