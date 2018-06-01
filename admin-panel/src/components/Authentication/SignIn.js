@@ -16,7 +16,10 @@ const SignIn = props =>
         aria-labelledby="form-dialog-title"
     >
         <DialogTitle id="form-dialog-title">
-            Logowanie
+            { !props.hasError ? 
+                'Logowanie' 
+                : 'Logowanie nieudane'
+            }
         </DialogTitle>
         <DialogContent>
             <TextField
@@ -27,6 +30,7 @@ const SignIn = props =>
                 name="username"
                 label="Login"
                 fullWidth
+                error={props.hasError}
             />
             <TextField
                 value={props.password}
@@ -36,6 +40,7 @@ const SignIn = props =>
                 label="Hasło"
                 type="password"
                 fullWidth
+                error={props.hasError}
             />
         </DialogContent>
         <DialogActions>
