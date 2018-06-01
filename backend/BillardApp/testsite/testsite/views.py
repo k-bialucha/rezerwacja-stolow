@@ -199,12 +199,14 @@ class ReservationListViewSet(APIView):
 			date = request.data.get('DATE')
 			h_from=request.data.get('HOUR_FROM')
 			h_to= request.data.get('HOUR_TO')
-			oplata = request.data.get('CHARGE')
 			user = get_object_or_404(User,username=request.user)
 			subject = 'Potwierdzenie rezerwacji dokonanej na bilardapp'
 			from_email= settings.EMAIL_HOST_USER
 			to_email = [user.email]
 			id_res = serializer.data['ID_RES']
+			oplata_get = get_object_or_404(ReservationList,pk=id_res)
+			serializer = ReservationListSerializer(oplata_get)
+			oplata = serializer.data['CHARGE']
 			imie = user.first_name
 			signup_message = "Dziękujemy %s za dokonanie rezerwacji!\nPoniżej znajdują się informacje o rezerwacji:\n ID Rezerwacji: %d,\n Stół: %s, \n Data: %s,\n Godzina od: %s do %s,\n Opłata: %s \nZapraszamy do klubu 15 minut przed dokonaną rezerwacją w celu jej potwierdzenia.\nDziekujemy i zapraszamy ponownie do skorzystania z naszych usług.\nProsimy nie odpowiadać na ten email.\nPozdrawiamy,\nBilardApp" % (imie,id_res,stol,date,h_from,h_to, oplata)  
 			send_mail(subject=subject,message=signup_message,from_email=from_email,recipient_list=to_email, fail_silently=False)
@@ -219,17 +221,17 @@ class ReservationListViewSet(APIView):
 			date = request.data.get('DATE')
 			h_from=request.data.get('HOUR_FROM')
 			h_to= request.data.get('HOUR_TO')
-			oplata = serializer.data['CHARGE']
 			user = get_object_or_404(User,username=request.user)
 			subject = 'Potwierdzenie rezerwacji dokonanej na bilardapp'
 			from_email= settings.EMAIL_HOST_USER
 			to_email = [user.email]
 			id_res = serializer.data['ID_RES']
+			oplata_get = get_object_or_404(ReservationList,pk=id_res)
+			serializer = ReservationListSerializer(oplata_get)
+			oplata = serializer.data['CHARGE']
 			imie = user.first_name
 			signup_message = "Dziękujemy %s za dokonanie rezerwacji!\nPoniżej znajdują się informacje o rezerwacji:\n ID Rezerwacji: %d,\n Stół: %s, \n Data: %s,\n Godzina od: %s do %s,\n Opłata: %s \nZapraszamy do klubu 15 minut przed dokonaną rezerwacją w celu jej potwierdzenia.\nDziekujemy i zapraszamy ponownie do skorzystania z naszych usług.\nProsimy nie odpowiadać na ten email.\nPozdrawiamy,\nBilardApp" % (imie,id_res,stol,date,h_from,h_to, oplata)  
 			send_mail(subject=subject,message=signup_message,from_email=from_email,recipient_list=to_email, fail_silently=False)
-
-			
 			return Response(serializer.data, status=status.HTTP_201_CREATED)
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
