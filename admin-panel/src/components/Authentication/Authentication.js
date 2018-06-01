@@ -53,6 +53,7 @@ class Authentication extends React.PureComponent {
                     handleClose={this.handleClose.bind(this)}
                 />
                 <UserPanel 
+                    isAuthenticated={this.props.auth.isAuthenticated}
                     signOut={this.props.auth.signOut}
                     isWindowOpen={this.state.openWindow === 'userPanel'}
                     handleClose={this.handleClose.bind(this)}    

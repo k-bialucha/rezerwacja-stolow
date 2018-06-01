@@ -13,13 +13,24 @@ const UserPanel = props =>
         aria-labelledby="form-dialog-title"
     >
         <DialogTitle id="form-dialog-title">
-            Zalogowano!
+            {props.isAuthenticated ?
+                'Zalogowano!'
+                : 'Wylogowano!'
+            }
         </DialogTitle>
         <DialogActions>
-            <Button onClick={props.handleClose} color="primary">
+            <Button
+                onClick={props.handleClose}
+                color="primary"
+            >
                 Anuluj
             </Button>
-            <Button onClick={props.signOut} color="secondary" variant="raised" >
+            <Button 
+                onClick={props.signOut} 
+                color="secondary"
+                variant="raised" 
+                disabled={!props.isAuthenticated}
+            >
                 Wyloguj
             </Button>
         </DialogActions>
