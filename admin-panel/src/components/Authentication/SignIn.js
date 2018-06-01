@@ -7,6 +7,7 @@ import Dialog, {
     DialogTitle,
 } from 'material-ui/Dialog';
 import Button from 'material-ui/Button';
+import Typography from 'material-ui/Typography';
 import { LinearProgress } from 'material-ui/Progress';
 
 const SignIn = props =>
@@ -17,10 +18,12 @@ const SignIn = props =>
         aria-labelledby="form-dialog-title"
     >
         <DialogTitle id="form-dialog-title">
-            { !props.hasError ? 
-                'Logowanie' 
-                : 'Logowanie nieudane'
-            }
+            <Typography color={!props.hasError ? 'inherit' : 'error'} variant="title">
+                { !props.hasError ? 
+                    'Logowanie' 
+                    : 'Logowanie nieudane'
+                }
+            </Typography>
         </DialogTitle>
         <DialogContent>
             <TextField
