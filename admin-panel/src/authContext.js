@@ -33,7 +33,11 @@ class AuthProvider extends React.PureComponent {
             },
             body: data
         })
-        .then( response => response.json() )
+        .then( response => {
+            if (response.status >= 300)
+                throw new Error();
+            return response.json() 
+        })
         .then( json => {
             this.setToken(json.token);
             return json.token;
