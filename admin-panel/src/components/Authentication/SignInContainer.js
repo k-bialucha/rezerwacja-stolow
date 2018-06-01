@@ -8,7 +8,8 @@ class SignInContainer extends React.PureComponent {
         this.state = {
             username: '',
             password: '',
-            hasError: false
+            hasError: false,
+            isRequestInProgress: false
         }
     }
     updateField(event) {
@@ -19,6 +20,7 @@ class SignInContainer extends React.PureComponent {
         });
     }
     handleSignIn() {
+        this.setState({ isRequestInProgress: true });
         const { username, password } = this.state;
         this.props.signIn(username, password)
             .then(() => {
@@ -35,6 +37,9 @@ class SignInContainer extends React.PureComponent {
                     hasError: true
                 });
             })
+            .then(() => 
+                this.setState({ isRequestInProgress: false })
+            );
     }
     render() {
         return (
@@ -46,6 +51,7 @@ class SignInContainer extends React.PureComponent {
                 password={this.state.password}
                 signIn={this.handleSignIn.bind(this)}
                 hasError={this.state.hasError}
+                showLoading={this.state.isRequestInProgress}
             />
         );
     }
