@@ -7,6 +7,7 @@ import Dialog, {
     DialogTitle,
 } from 'material-ui/Dialog';
 import Button from 'material-ui/Button';
+import { LinearProgress } from 'material-ui/Progress';
 
 const SignIn = props =>
     <Dialog
@@ -44,13 +45,28 @@ const SignIn = props =>
             />
         </DialogContent>
         <DialogActions>
-            <Button onClick={props.handleClose} color="primary">
+            <Button 
+                onClick={props.handleClose}
+                color="primary"
+            >
                 Anuluj
             </Button>
-            <Button onClick={props.signIn} color="primary" variant="raised" >
+            <Button 
+                onClick={props.signIn}
+                color="primary"
+                variant="raised"
+                disabled={props.showLoading}
+            >
                 Zaloguj
             </Button>
         </DialogActions>
+        {props.showLoading ?
+            <LinearProgress 
+                variant="query"
+                color="secondary"
+            />
+            : null
+        }
     </Dialog>
 
 export default SignIn;
