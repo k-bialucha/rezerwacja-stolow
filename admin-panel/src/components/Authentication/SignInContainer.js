@@ -8,12 +8,14 @@ class SignInContainer extends React.PureComponent {
         this.state = {
             username: '',
             password: '',
+            hasError: false
         }
     }
     updateField(event) {
         const { name, value } = event.target;
         this.setState({
-            [name]: value
+            [name]: value,
+            hasError: false
         });
     }
     handleSignIn() {
@@ -23,6 +25,13 @@ class SignInContainer extends React.PureComponent {
                 this.setState({
                     username: '',
                     password: ''
+                });
+            })
+            .catch(error => {
+                this.setState({
+                    username: '',
+                    password: '',
+                    hasError: true
                 });
             })
     }
@@ -35,6 +44,7 @@ class SignInContainer extends React.PureComponent {
                 username={this.state.username}
                 password={this.state.password}
                 signIn={this.handleSignIn.bind(this)}
+                hasError={this.state.hasError}
             />
         );
     }
