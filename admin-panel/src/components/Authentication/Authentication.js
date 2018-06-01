@@ -34,7 +34,15 @@ class Authentication extends React.PureComponent {
             this.setState({
                 openWindow: undefined
             });
-        }, 5000)
+        }, 2000)
+    }
+    handleSignOut() {
+        this.props.auth.signOut();
+        setTimeout((params) => {
+            this.setState({
+                openWindow: undefined
+            });
+        }, 2000)
     }
     render() {
         return (
@@ -54,7 +62,7 @@ class Authentication extends React.PureComponent {
                 />
                 <UserPanel 
                     isAuthenticated={this.props.auth.isAuthenticated}
-                    signOut={this.props.auth.signOut}
+                    signOut={this.handleSignOut.bind(this)}
                     isWindowOpen={this.state.openWindow === 'userPanel'}
                     handleClose={this.handleClose.bind(this)}    
                 />
