@@ -264,9 +264,3 @@ class UsersListView(APIView):
 		queryset=auth_user.objects.all()
 		serializer = UsersListSerializer(queryset, many=True)
 		return Response(serializer.data)
-	def put(self, request):
-		serializer = UsersListSerializer(data=request.data)
-		if serializer.is_valid():
-			serializer.save()
-			return Response(serializer.data)
-		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -26,7 +26,7 @@ class UserCreateSerializer(serializers.ModelSerializer):
         max_length=32,
         validators=[UniqueValidator(queryset=User.objects.all())]
     )
-    #images  = serializers.PrimaryKeyRelatedField(many=True, queryset=Img.objects.all())
+   
     def create(self, validated_data):
         user = User.objects.create(
             username=validated_data['username'], email=validated_data['email']
