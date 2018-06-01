@@ -26,6 +26,7 @@ class SignInContainer extends React.PureComponent {
                     username: '',
                     password: ''
                 });
+                this.props.handleSuccessfulLogin();
             })
             .catch(error => {
                 this.setState({

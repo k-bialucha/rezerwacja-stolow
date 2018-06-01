@@ -26,6 +26,16 @@ class Authentication extends React.PureComponent {
     handleClose() {
         this.setState({ openWindow: undefined })
     }
+    handleSuccessfulLogin() {
+        this.setState({
+            openWindow: 'userPanel'
+        });
+        setTimeout((params) => {
+            this.setState({
+                openWindow: undefined
+            });
+        }, 5000)
+    }
     render() {
         return (
             <React.Fragment>
@@ -39,6 +49,7 @@ class Authentication extends React.PureComponent {
                 <SignInContainer
                     signIn={this.props.auth.signIn}
                     isWindowOpen={this.state.openWindow === 'signIn'}
+                    handleSuccessfulLogin={this.handleSuccessfulLogin.bind(this)}
                     handleClose={this.handleClose.bind(this)}
                 />
                 <UserPanel 
