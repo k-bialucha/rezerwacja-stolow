@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import { AuthProvider } from '../authContext';
+
 import './App.css';
 import CssBaseline from 'material-ui/CssBaseline';
 
@@ -20,15 +22,17 @@ class App extends Component {
     render() {
         return (
             <div className="App">
-                <CssBaseline />
-                <Header />
-                <AppBody
-                    route={this.state.route}
-                />
-                <BottomNav
-                    route={this.state.route}
-                    changeRoute={this.changeRoute.bind(this)}
-                />
+                <AuthProvider>
+                    <CssBaseline />
+                    <Header />
+                    <AppBody
+                        route={this.state.route}
+                    />
+                    <BottomNav
+                        route={this.state.route}
+                        changeRoute={this.changeRoute.bind(this)}
+                    />
+                </AuthProvider>
             </div>
         );
     }
