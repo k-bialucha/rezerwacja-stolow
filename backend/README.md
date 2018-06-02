@@ -2,6 +2,24 @@
 Wymagania:
   - Python >=3.5
 
+### Skrypty dla Linux (Ubuntu) do uruchomienia Serwera Backend
+
+Stworzenie skryptu run.sh:
+```bash
+cd /rezerwacja-stolow/backend/;
+source newenv/bin/activate;
+cd /rezerwacja-stolow/backend/BillardApp/testsite/;
+MYSQL_PASSWORD="XXX" G_PASS="XXX" python manage.py runserver 0.0.0.0:8000
+```
+Podczas tworzenia skryptu trzeba podać prawidłowe hasła w zmiennych. 
+MYSQL_PASSWORD = Hasło do bazy danych
+G_PASS = Hasło do poczty email
+
+Uruchomienie skryptu:
+```bash
+./run.sh
+```
+
 
 ### Skrypty dla Windows (PowerShell)
 
