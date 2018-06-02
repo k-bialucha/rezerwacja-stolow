@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '=x%6z2dhg6rw(@av0+f$$6)li7_g0muflj!k_^_!htmrkyrr##'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 AWS_ACCESS_KEY_ID='AKIAJIJJ77FCGZHJ7OKQ'
 AWS_SECRET_ACCESS_KEY='2G9o1L0NmbsXx5fvVu2OgvHLbvitrHKdrjN7/cb'

@@ -15,11 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.conf.urls import url, include
-from django.views.generic import TemplateView
 from testsite import views
 from .views import (
-	ReservationView, 
-	ReservationsDetailView, 
 	UsersListView, 
 	UserSelfInfo,
 	ReservationListViewSet, 
@@ -37,9 +34,6 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-	url(r'^$', TemplateView.as_view(template_name='todo/index.html')),
-	url(r'^testsite/api/$', ReservationView.as_view()),	
-	url(r'^testsite/api/(?P<pk>[0-9]+)/', ReservationsDetailView.as_view()),
 	url(r'^testsite/api2/(?P<pk>[0-9]+)/', ReservationDetailListViewSet.as_view()),
 	url(r'^testsite/api2/$', ReservationListViewSet.as_view()),
  	url(r'^testsite/api3/$', ReservationPriceViewSet.as_view()),
