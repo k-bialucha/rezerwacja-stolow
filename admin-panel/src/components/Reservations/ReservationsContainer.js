@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import Reservations from './Reservations';
+import { withAuthContext } from '../../authContext';
 
 const useLocalhost = true;
 const localhostUrl = 'http://localhost:8000/';
@@ -68,4 +69,4 @@ class ReservationsContainer extends Component {
     }
 }
 
-export default ReservationsContainer;
+export default withAuthContext(ReservationsContainer);
