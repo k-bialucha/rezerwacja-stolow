@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import Reservations from './Reservations';
 import { withAuthContext } from '../../authContext';
 
+import DataProvider from './../../DataProvider';
+
 const useLocalhost = true;
 const localhostUrl = 'http://localhost:8000/';
 const remoteUrl = 'http://ec2-18-217-215-212.us-east-2.compute.amazonaws.com:8000/';
@@ -21,15 +23,9 @@ class ReservationsContainer extends Component {
         this.fetchReservations();
     }
     fetchReservations() {
-        const Authorization = `Token ${this.props.auth.token}`
-        fetch(apiUrl+servicePath, {
-            headers: {
-                'accept': 'application/json',
-                Authorization
-            }
-        })
-        .then( response => response.json() )
-        .then( json => this.setState({ reservations: json }) );
+        const dataProvider = new DataProvider(this.props.auth.token);
+        dataProvider.getReservations()
+            .then( reservations => this.setState({ reservations }) );
     }
     deleteReservationItem(key) {
         const url = apiUrl + servicePath + '/' + key;
