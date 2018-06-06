@@ -21,9 +21,11 @@ class ReservationsContainer extends Component {
         this.fetchReservations();
     }
     fetchReservations() {
+        const Authorization = `Token ${this.props.auth.token}`
         fetch(apiUrl+servicePath, {
             headers: {
-                'accept': 'application/json'
+                'accept': 'application/json',
+                Authorization
             }
         })
         .then( response => response.json() )
