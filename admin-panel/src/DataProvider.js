@@ -16,6 +16,17 @@ class DataProvider {
     constructor(token) {
         this.token = token;
     }
+    getReservations() {
+        const Authorization = `Token ${this.token}`;
+        const url = composeUrl('reservations');
+        return fetch(url, {
+            headers: {
+                'accept': 'application/json',
+                Authorization
+            }
+        })
+        .then( response => response.json() );
+    }
 }
 
 export default DataProvider;
