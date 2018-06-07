@@ -27,6 +27,17 @@ class DataProvider {
         })
         .then( response => response.json() );
     }
+    deleteReservation(key) {
+        const Authorization = `Token ${this.token}`;
+        const url = composeUrl('reservations', key)
+        return fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'accept': 'application/json',
+                Authorization
+            }
+        })
+    }
 }
 
 export default DataProvider;
