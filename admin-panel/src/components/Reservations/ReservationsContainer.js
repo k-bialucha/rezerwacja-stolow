@@ -24,18 +24,13 @@ class ReservationsContainer extends Component {
     }
     fetchReservations() {
         const dataProvider = new DataProvider(this.props.auth.token);
-        dataProvider.getReservations()
+        return dataProvider.getReservations()
             .then( reservations => this.setState({ reservations }) );
     }
     deleteReservationItem(key) {
-        const url = apiUrl + servicePath + '/' + key;
-        return fetch(url, {
-            method: 'DELETE',
-            headers: {
-                'accept': 'application/json'
-            }
-        })
-        .then( () => this.fetchReservations() );
+        const dataProvider = new DataProvider(this.props.auth.token);
+        return dataProvider.deleteReservation(key)
+            .then( response => this.fetchReservations() );
     }
     updateReservationItem(key, item) {
         const url = apiUrl + servicePath + '/' + key + '/';
