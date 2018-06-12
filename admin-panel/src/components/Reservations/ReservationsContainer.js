@@ -33,15 +33,9 @@ class ReservationsContainer extends Component {
             .then( response => this.fetchReservations() );
     }
     updateReservationItem(key, item) {
-        const url = apiUrl + servicePath + '/' + key + '/';
-        return fetch(url, {
-            method: 'PUT',
-            body: JSON.stringify(item),
-            headers: {
-                'accept': 'application/json'
-            }
-        })
-        .then( () => this.fetchReservations() );
+        const dataProvider = new DataProvider(this.props.auth.token);
+        return dataProvider.updateReservation(key, item)
+            .then( () => this.fetchReservations() );
     }
     render() {
         const comingReservations = this.state.reservations
