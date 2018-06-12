@@ -38,6 +38,18 @@ class DataProvider {
             }
         })
     }
+    updateReservation(key, item) {
+        const Authorization = `Token ${this.token}`;
+        const url = composeUrl('reservations', key)
+        return fetch(url, {
+            method: 'PUT',
+            body: JSON.stringify(item),
+            headers: {
+                'accept': 'application/json',
+                Authorization
+            }
+        })
+    }
 }
 
 export default DataProvider;
