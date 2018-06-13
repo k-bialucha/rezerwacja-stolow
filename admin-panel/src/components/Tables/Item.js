@@ -52,6 +52,10 @@ const tables = {
         name: 'SNOOKER',
         imageUrl: 'http://www.stixbilliard.club/assets/img/blogs/snooker.jpg'
     },
+    3: {
+        name: 'KARAMBOL',
+        imageUrl: 'http://www.stixbilliard.club/assets/img/blogs/snooker.jpg'
+    },
 };
 
 const classes = theme => ({
