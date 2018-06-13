@@ -24,11 +24,14 @@ const Item = props =>
             <div>
                 <Typography 
                     variant="headline" 
-                    {...props.unconfirmed ? { color: 'secondary'} : {}}
+                    color={props.cancelled ? 'textSecondary': 'default'}
                 >
                     Rezerwacja nr {props.id}
                 </Typography>
-                <Typography variant="subheading" color="primary">
+                <Typography 
+                    variant="subheading"
+                    color={props.cancelled ? 'textSecondary': 'primary'}
+                >
                     {props.date} / godz. {props.startHour}-{props.endHour}
                 </Typography>
             </div>

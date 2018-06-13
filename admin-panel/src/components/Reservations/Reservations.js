@@ -28,6 +28,7 @@ const Reservations = props => {
                 endHour={reservation['HOUR_TO']}
                 tableId={reservation['ID_TABLE']}
                 userId={reservation['ID_USER']}
+                cancelled={reservation['CONFIRMED']}
                 deleteItem={() => props.deleteReservationItem(reservation['ID_RES'])}
                 updateItem={newFields => {
                     const updatedItem = { ...reservation, ...newFields }
@@ -55,9 +56,6 @@ const Reservations = props => {
                     </React.Fragment>
                 )
                 : <ReservationsLoading />
-            }
-
-            {
             }
         </Paper>
     );
