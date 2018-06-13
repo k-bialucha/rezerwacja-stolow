@@ -12,6 +12,15 @@ const composeUrl = (resource, key) =>
     `${apiUrl}/${endpoints[resource]}/${key ? key+'/' : ''}`
 ;
 
+const composeRequestDetails = (token, method, body) => ({
+    method: method || "GET",
+    ...body ? {body: JSON.stringify(body)} : {},
+    headers: {
+        'accept': 'application/json',
+        'Authorization': `Token ${token}`
+    }
+});
+
 class DataProvider {
     constructor(token) {
         this.token = token;
