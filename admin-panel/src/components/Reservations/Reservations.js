@@ -30,6 +30,7 @@ const Reservations = props => {
                 userId={reservation['ID_USER']}
                 cancelled={reservation['CONFIRMED']}
                 deleteItem={() => props.deleteReservationItem(reservation['ID_RES'])}
+                cancelItem={() => props.cancelReservationItem(reservation['ID_RES'])}
                 updateItem={newFields => {
                     const updatedItem = { ...reservation, ...newFields }
                     return props.updateReservationItem(reservation['ID_RES'], updatedItem)}

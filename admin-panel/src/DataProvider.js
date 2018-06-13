@@ -41,6 +41,11 @@ class DataProvider {
         const requestDetails = composeRequestDetails(this.token, 'PUT', item);
         return fetch(url, requestDetails)
     }
+    cancelReservation(key) {
+        const url = composeUrl('reservations', key);
+        const requestDetails = composeRequestDetails(this.token, 'PATCH');
+        return fetch(url, requestDetails)
+    }
 }
 
 export default DataProvider;

@@ -11,6 +11,7 @@ import { withStyles } from 'material-ui/styles';
 
 import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
 import DeleteIcon from 'material-ui-icons/Delete';
+import CancelIcon from 'material-ui-icons/Cancel';
 import SaveIcon from 'material-ui-icons/Save';
 import ConfirmIcon from 'material-ui-icons/TouchApp';
 
@@ -55,6 +56,17 @@ const Item = props =>
             >
                 <DeleteIcon /> Usuń
             </Button>
+            {!props.cancelled &&
+                <Button 
+                    color="secondary"
+                    mini
+                    onClick={props.cancelItem}
+                    disabled={props.isItemLoading} 
+                >
+                    <CancelIcon /> Anuluj
+                    {props.isItemLoading && <CircularProgress size={24} />}
+                </Button>
+            }
             <Button 
                 color="primary"
                 mini
@@ -63,18 +75,6 @@ const Item = props =>
             >
                 <SaveIcon /> Zapisz
             </Button>
-            {props.unconfirmed &&
-                <Button 
-                    color="secondary"
-                    variant="raised"
-                    mini
-                    onClick={props.confirmItem}
-                    disabled={props.isItemLoading} 
-                >
-                    <ConfirmIcon /> Potwierdź
-                    {props.isItemLoading && <CircularProgress size={24} />}
-                </Button>
-            }
         </ExpansionPanelActions>
     </ExpansionPanel>
 ;

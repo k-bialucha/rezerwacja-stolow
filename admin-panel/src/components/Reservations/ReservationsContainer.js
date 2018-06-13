@@ -30,6 +30,11 @@ class ReservationsContainer extends Component {
         return dataProvider.updateReservation(key, item)
             .then( () => this.fetchReservations() );
     }
+    cancelReservationItem(key) {
+        const dataProvider = new DataProvider(this.props.auth.token);
+        return dataProvider.cancelReservation(key)
+            .then( () => this.fetchReservations() );
+    }
     render() {
         const comingReservations = this.state.reservations
             .filter(res => new Date(res['DATE']) > Date.now());
@@ -39,6 +44,7 @@ class ReservationsContainer extends Component {
                 areReservationsLoaded={!!this.state.reservations.length}
                 deleteReservationItem={this.deleteReservationItem.bind(this)}
                 updateReservationItem={this.updateReservationItem.bind(this)}
+                cancelReservationItem={this.cancelReservationItem.bind(this)}
             />
         );
     }
