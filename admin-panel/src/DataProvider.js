@@ -26,38 +26,20 @@ class DataProvider {
         this.token = token;
     }
     getReservations() {
-        const Authorization = `Token ${this.token}`;
         const url = composeUrl('reservations');
-        return fetch(url, {
-            headers: {
-                'accept': 'application/json',
-                Authorization
-            }
-        })
-        .then( response => response.json() );
+        const requestDetails = composeRequestDetails(this.token);
+        return fetch(url, requestDetails)
+            .then( response => response.json() );
     }
     deleteReservation(key) {
-        const Authorization = `Token ${this.token}`;
-        const url = composeUrl('reservations', key)
-        return fetch(url, {
-            method: 'DELETE',
-            headers: {
-                'accept': 'application/json',
-                Authorization
-            }
-        })
+        const url = composeUrl('reservations', key);
+        const requestDetails = composeRequestDetails(this.token, 'DELETE');
+        return fetch(url, requestDetails);
     }
     updateReservation(key, item) {
-        const Authorization = `Token ${this.token}`;
-        const url = composeUrl('reservations', key)
-        return fetch(url, {
-            method: 'PUT',
-            body: JSON.stringify(item),
-            headers: {
-                'accept': 'application/json',
-                Authorization
-            }
-        })
+        const url = composeUrl('reservations', key);
+        const requestDetails = composeRequestDetails(this.token, 'PUT', item);
+        return fetch(url, requestDetails)
     }
 }
 
