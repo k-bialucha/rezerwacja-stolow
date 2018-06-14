@@ -7,6 +7,10 @@ import ModeEditIcon from 'material-ui-icons/ModeEdit';
 import BuildIcon from 'material-ui-icons/Build';
 import { withStyles } from 'material-ui/styles';
 
+import poolPicture from '../../images/pool.png';
+import snookerPicture from '../../images/snooker.png';
+import karambolPicture from '../../images/karambol.png';
+
 const Item = props => {
     return (
         <Card className={props.classes.card}>
@@ -36,8 +40,8 @@ const Item = props => {
         </div>
         <CardMedia
             className={props.classes.cover}
-            image={tables[props.table['ID_TYPE']].imageUrl}
-            title="Snooker"
+            image={tables[props.table['ID_TYPE']].image}
+            title={tables[props.table['ID_TYPE']].name}
         />
         </Card>
 );
@@ -46,15 +50,15 @@ const Item = props => {
 const tables = {
     1: {
         name: 'POOL',
-        imageUrl: 'http://mrbilliards.com.au/wp-content/uploads/2014/05/garage_sale.jpg'
+        image: poolPicture
     },
     2: {
         name: 'SNOOKER',
-        imageUrl: 'http://www.stixbilliard.club/assets/img/blogs/snooker.jpg'
+        image: snookerPicture
     },
     3: {
         name: 'KARAMBOL',
-        imageUrl: 'http://www.stixbilliard.club/assets/img/blogs/snooker.jpg'
+        image: karambolPicture
     },
 };
 
