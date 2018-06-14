@@ -241,6 +241,21 @@ class TablesInfromation(APIView):
 			serializer.save()
 			return Response(serializer.data)
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+	def delete(self, request):
+		stol = request.data.get('ID_TABLE')
+		testsite = get_object_or_404(TABLES, pk=stol)
+		testsite.delete()
+		return Response(status=status.HTTP_204_NO_CONTENT)
+	def patch(self,request):
+		stol = request.data.get('ID_TABLE')
+		miejsca=request.data.get('NUM_OF_SEATS')
+		typ=request.data.get('ID_TYPE')
+		testsite=get_object_or_404(TABLES,pk=stol)
+		serializer=TablesSerializer(testsite,data={'NUM_OF_SEATS': miejsca, 'ID_TYPE':typ},partial=True)
+		if serializer.is_valid():
+			serializer.save()
+			return Response(serializer.data)
+		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 class UsersListView(APIView):
 	permission_classes = (permissions.AllowAny,)
 	def get(self, request):
