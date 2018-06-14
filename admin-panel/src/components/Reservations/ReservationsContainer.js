@@ -36,8 +36,9 @@ class ReservationsContainer extends Component {
             .then( () => this.fetchReservations() );
     }
     render() {
+        const currentDate = (new Date()).setHours(0, 0, 0, 0);
         const comingReservations = this.state.reservations
-            .filter(res => new Date(res['DATE']) > Date.now());
+            .filter(res => new Date(res['DATE']) > currentDate)
         return (
             <Reservations 
                 reservations={comingReservations}
