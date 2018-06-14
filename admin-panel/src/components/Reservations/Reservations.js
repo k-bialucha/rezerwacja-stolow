@@ -17,26 +17,7 @@ const sorter = (item1, item2) => {
 };
 
 const Reservations = props => {
-    const awaiting = props.awaitingReservations
-        .sort(sorter)
-        .map(reservation => 
-            <Item 
-                key={reservation['ID_RES']}
-                id={reservation['ID_RES']}
-                unconfirmed
-                date={reservation['DATE']}
-                startHour={reservation['HOUR_FROM']}
-                endHour={reservation['HOUR_TO']}
-                tableId={reservation['ID_TABLE']}
-                userId={reservation['ID_USER']}
-                deleteItem={() => props.deleteReservationItem(reservation['ID_RES'])}
-                updateItem={newFields => {
-                    const updatedItem = { ...reservation, ...newFields }
-                    return props.updateReservationItem(reservation['ID_RES'], updatedItem)}
-                }
-            />
-        );
-    const confirmed = props.confirmedReservations
+    const reservations = props.reservations
         .sort(sorter)
         .map(reservation => 
             <Item 
@@ -47,7 +28,9 @@ const Reservations = props => {
                 endHour={reservation['HOUR_TO']}
                 tableId={reservation['ID_TABLE']}
                 userId={reservation['ID_USER']}
+                cancelled={reservation['CONFIRMED']}
                 deleteItem={() => props.deleteReservationItem(reservation['ID_RES'])}
+                cancelItem={() => props.cancelReservationItem(reservation['ID_RES'])}
                 updateItem={newFields => {
                     const updatedItem = { ...reservation, ...newFields }
                     return props.updateReservationItem(reservation['ID_RES'], updatedItem)}
@@ -57,31 +40,23 @@ const Reservations = props => {
     return (
         <Paper className="Reservations">
             {props.areReservationsLoaded ?
-                null
-                :
-                <ReservationsLoading />
-            }
-            {awaiting.length > 0 ?
-                <React.Fragment>
-                    <Typography variant="display1">
-                        Rezerwacje oczekujące na potwierdzenie:
-                    </Typography>
-                    <div className="Reservations-list">
-                        { awaiting }
-                    </div>
-                </React.Fragment>
-                : null
-            }
-            {confirmed.length > 0 ?
-                <React.Fragment>
-                    <Typography variant="display1">
-                        Potwierdzone rezerwacje:
-                    </Typography>
-                    <div className="Reservations-list">
-                        { confirmed }
-                    </div>
-                </React.Fragment>
-                : null
+                (reservations.length > 0 ?
+                    <React.Fragment>
+                        <Typography variant="display1">
+                            Nadchodzące rezerwacje
+                        </Typography>
+                        <div className="Reservations-list">
+                            { reservations }
+                        </div>
+                    </React.Fragment>
+                    : 
+                    <React.Fragment>
+                        <Typography variant="text">
+                            Brak rezerwacji
+                        </Typography>
+                    </React.Fragment>
+                )
+                : <ReservationsLoading />
             }
         </Paper>
     );

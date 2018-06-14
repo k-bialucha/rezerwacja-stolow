@@ -4,7 +4,7 @@ import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
 
-import Item from './Item';
+import Item from './ItemContainer';
 
 const Tables = props => 
     <Paper className={props.classes.tables}>

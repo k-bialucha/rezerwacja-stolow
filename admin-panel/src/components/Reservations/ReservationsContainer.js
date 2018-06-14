@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 
 import Reservations from './Reservations';
+import { withAuthContext } from '../../authContext';
 
-const useLocalhost = true;
-const localhostUrl = 'http://localhost:8000/';
-const remoteUrl = 'http://ec2-18-217-215-212.us-east-2.compute.amazonaws.com:8000/';
-
-const apiUrl = useLocalhost ? localhostUrl : remoteUrl;
-const servicePath = 'testsite/api2';
+import DataProvider from './../../DataProvider';
 
 class ReservationsContainer extends Component {
     constructor(props) {
@@ -20,52 +16,38 @@ class ReservationsContainer extends Component {
         this.fetchReservations();
     }
     fetchReservations() {
-        fetch(apiUrl+servicePath, {
-            headers: {
-                'accept': 'application/json'
-            }
-        })
-        .then( response => response.json() )
-        .then( json => this.setState({ reservations: json }) );
+        const dataProvider = new DataProvider(this.props.auth.token);
+        return dataProvider.getReservations()
+            .then( reservations => this.setState({ reservations }) );
     }
     deleteReservationItem(key) {
-        const url = apiUrl + servicePath + '/' + key;
-        return fetch(url, {
-            method: 'DELETE',
-            headers: {
-                'accept': 'application/json'
-            }
-        })
-        .then( () => this.fetchReservations() );
+        const dataProvider = new DataProvider(this.props.auth.token);
+        return dataProvider.deleteReservation(key)
+            .then( response => this.fetchReservations() );
     }
     updateReservationItem(key, item) {
-        const url = apiUrl + servicePath + '/' + key + '/';
-        return fetch(url, {
-            method: 'PUT',
-            body: JSON.stringify(item),
-            headers: {
-                'accept': 'application/json'
-            }
-        })
-        .then( () => this.fetchReservations() );
+        const dataProvider = new DataProvider(this.props.auth.token);
+        return dataProvider.updateReservation(key, item)
+            .then( () => this.fetchReservations() );
+    }
+    cancelReservationItem(key) {
+        const dataProvider = new DataProvider(this.props.auth.token);
+        return dataProvider.cancelReservation(key)
+            .then( () => this.fetchReservations() );
     }
     render() {
         const comingReservations = this.state.reservations
             .filter(res => new Date(res['DATE']) > Date.now());
-        const awaitingReservations = comingReservations
-            .filter(res => !res['CONFIRMED']);
-        const confirmedReservations = comingReservations
-            .filter(res => res['CONFIRMED']);
         return (
             <Reservations 
-                confirmedReservations={confirmedReservations}
-                awaitingReservations={awaitingReservations}
+                reservations={comingReservations}
                 areReservationsLoaded={!!this.state.reservations.length}
                 deleteReservationItem={this.deleteReservationItem.bind(this)}
                 updateReservationItem={this.updateReservationItem.bind(this)}
+                cancelReservationItem={this.cancelReservationItem.bind(this)}
             />
         );
     }
 }
 
-export default ReservationsContainer;
+export default withAuthContext(ReservationsContainer);

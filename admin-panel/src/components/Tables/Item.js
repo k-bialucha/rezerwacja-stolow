@@ -7,6 +7,13 @@ import ModeEditIcon from 'material-ui-icons/ModeEdit';
 import BuildIcon from 'material-ui-icons/Build';
 import { withStyles } from 'material-ui/styles';
 
+import { MenuItem } from 'material-ui/Menu';
+import Select from 'material-ui/Select';
+
+import poolPicture from '../../images/pool.png';
+import snookerPicture from '../../images/snooker.png';
+import karambolPicture from '../../images/karambol.png';
+
 const Item = props => {
     return (
         <Card className={props.classes.card}>
@@ -15,29 +22,45 @@ const Item = props => {
                 <Typography variant="headline">
                     Stół: {props.table['ID_TABLE']}
                 </Typography>
-                <Typography variant="subheading" color="textSecondary">
-                    Typ: 
-                    <span className={props.classes.highlightedText}>
-                        {tables[props.table['ID_TYPE']].name}
-                    </span>
-                </Typography>
-                <Typography variant="subheading" color="textSecondary">
-                    Liczba miejsc: {props.table['NUM_OF_SEATS']}
-                </Typography>
+                {props.editMode ?
+                    <React.Fragment>
+                        Typ:
+                        <Select
+                            value={props.table['ID_TYPE']}
+                            onChange={event => props.updateField('ID_TYPE', event.target.value)}
+                            displayEmpty
+                            name="table-type"
+                            className={classes.selectEmpty}
+                        >
+                            <MenuItem value={1}>Pool</MenuItem>
+                            <MenuItem value={2}>Snooker</MenuItem>
+                            <MenuItem value={3}>Karambol</MenuItem>
+                        </Select>
+                    </React.Fragment>
+                    :
+                    <React.Fragment>
+                        <Typography variant="subheading" color="textSecondary">
+                            Typ: 
+                            <span className={props.classes.highlightedText}>
+                                {tables[props.table['ID_TYPE']].name}
+                            </span>
+                        </Typography>
+                        <Typography variant="subheading" color="textSecondary">
+                            Liczba miejsc: {props.table['NUM_OF_SEATS']}
+                        </Typography>
+                    </React.Fragment>
+                }
             </CardContent>
             <div className={props.classes.controls}>
-                <IconButton>
-                    <BuildIcon className={props.classes.icon} />
-                </IconButton>
-                <IconButton>
+                <IconButton onClick={props.toggleEditMode} >
                     <ModeEditIcon className={props.classes.icon} />
                 </IconButton>
             </div>
         </div>
         <CardMedia
             className={props.classes.cover}
-            image={tables[props.table['ID_TYPE']].imageUrl}
-            title="Snooker"
+            image={tables[props.table['ID_TYPE']].image}
+            title={tables[props.table['ID_TYPE']].name}
         />
         </Card>
 );
@@ -46,11 +69,15 @@ const Item = props => {
 const tables = {
     1: {
         name: 'POOL',
-        imageUrl: 'http://mrbilliards.com.au/wp-content/uploads/2014/05/garage_sale.jpg'
+        image: poolPicture
     },
     2: {
         name: 'SNOOKER',
-        imageUrl: 'http://www.stixbilliard.club/assets/img/blogs/snooker.jpg'
+        image: snookerPicture
+    },
+    3: {
+        name: 'KARAMBOL',
+        image: karambolPicture
     },
 };
 
@@ -58,7 +85,7 @@ const classes = theme => ({
     card: {
       display: 'flex',
       justifyContent: 'space-around',
-      height: '20vh',
+      minHeight: '20vh',
       margin: '15px auto',
     },
     details: {
@@ -70,8 +97,8 @@ const classes = theme => ({
       flex: '1 0 auto',
     },
     cover: {
-      width: '30%',
-      margin: '2px'
+      width: '35%',
+      margin: '8px'
     },
     controls: {
       display: 'flex',
