@@ -33,7 +33,7 @@ const Item = props => {
                 <IconButton>
                     <BuildIcon className={props.classes.icon} />
                 </IconButton>
-                <IconButton>
+                <IconButton onClick={props.toggleEditMode} >
                     <ModeEditIcon className={props.classes.icon} />
                 </IconButton>
             </div>
@@ -66,7 +66,7 @@ const classes = theme => ({
     card: {
       display: 'flex',
       justifyContent: 'space-around',
-      height: '20vh',
+      minHeight: '20vh',
       margin: '15px auto',
     },
     details: {
