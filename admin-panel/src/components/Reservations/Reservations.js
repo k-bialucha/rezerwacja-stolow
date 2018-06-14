@@ -5,6 +5,8 @@ import './Reservations.css';
 import Item from './ItemContainer';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
+import { FormControlLabel } from 'material-ui/Form';
+import Switch from 'material-ui/Switch';
 
 import ReservationsLoading from './ReservationsLoading';
 
@@ -45,6 +47,16 @@ const Reservations = props => {
                         <Typography variant="display1">
                             Nadchodzące rezerwacje
                         </Typography>
+                        <FormControlLabel
+                            control={
+                                <Switch
+                                checked={false}
+                                onChange={undefined}
+                                value={false}
+                                />
+                            }
+                            label="Filtry"
+                        />
                         <div className="Reservations-list">
                             { reservations }
                         </div>
