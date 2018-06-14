@@ -12,9 +12,14 @@ const Tables = props =>
             Dostępne stoły:
         </Typography>
         <Typography>
-            {
-                props.tables
-                    .map(table => <Item key={table['ID_TABLE']} table={table}/>)
+            {props.tables
+                .map(table => (
+                    <Item 
+                        key={table['ID_TABLE']}
+                        table={table}
+                        updateTable={props.updateTable}
+                    />
+                ))
             }
         </Typography>
     </Paper>
