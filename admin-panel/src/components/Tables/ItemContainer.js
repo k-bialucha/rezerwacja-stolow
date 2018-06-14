@@ -5,12 +5,19 @@ class ItemContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isInEditMode: false
+            isInEditMode: false,
+            ID_TYPE: props['ID_TYPE'],
+            NUM_OF_SEATS: props['NUM_OF_SEATS'],
         }
     }
     toggleEditMode() {
         this.setState({
             isInEditMode: !this.state.isInEditMode
+        });
+    }    
+    updateField(type, value) {
+        this.setState({
+            [type]: value,
         });
     }
     render() {
@@ -19,6 +26,7 @@ class ItemContainer extends React.Component {
                 {...this.props}
                 editMode={this.state.isInEditMode}
                 toggleEditMode={() => this.toggleEditMode()}
+                updateField={this.updateField.bind(this)}
             />
         );
     }

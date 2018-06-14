@@ -7,6 +7,9 @@ import ModeEditIcon from 'material-ui-icons/ModeEdit';
 import BuildIcon from 'material-ui-icons/Build';
 import { withStyles } from 'material-ui/styles';
 
+import { MenuItem } from 'material-ui/Menu';
+import Select from 'material-ui/Select';
+
 import poolPicture from '../../images/pool.png';
 import snookerPicture from '../../images/snooker.png';
 import karambolPicture from '../../images/karambol.png';
@@ -19,20 +22,36 @@ const Item = props => {
                 <Typography variant="headline">
                     Stół: {props.table['ID_TABLE']}
                 </Typography>
-                <Typography variant="subheading" color="textSecondary">
-                    Typ: 
-                    <span className={props.classes.highlightedText}>
-                        {tables[props.table['ID_TYPE']].name}
-                    </span>
-                </Typography>
-                <Typography variant="subheading" color="textSecondary">
-                    Liczba miejsc: {props.table['NUM_OF_SEATS']}
-                </Typography>
+                {props.editMode ?
+                    <React.Fragment>
+                        Typ:
+                        <Select
+                            value={props.table['ID_TYPE']}
+                            onChange={event => props.updateField('ID_TYPE', event.target.value)}
+                            displayEmpty
+                            name="table-type"
+                            className={classes.selectEmpty}
+                        >
+                            <MenuItem value={1}>Pool</MenuItem>
+                            <MenuItem value={2}>Snooker</MenuItem>
+                            <MenuItem value={3}>Karambol</MenuItem>
+                        </Select>
+                    </React.Fragment>
+                    :
+                    <React.Fragment>
+                        <Typography variant="subheading" color="textSecondary">
+                            Typ: 
+                            <span className={props.classes.highlightedText}>
+                                {tables[props.table['ID_TYPE']].name}
+                            </span>
+                        </Typography>
+                        <Typography variant="subheading" color="textSecondary">
+                            Liczba miejsc: {props.table['NUM_OF_SEATS']}
+                        </Typography>
+                    </React.Fragment>
+                }
             </CardContent>
             <div className={props.classes.controls}>
-                <IconButton>
-                    <BuildIcon className={props.classes.icon} />
-                </IconButton>
                 <IconButton onClick={props.toggleEditMode} >
                     <ModeEditIcon className={props.classes.icon} />
                 </IconButton>
@@ -78,8 +97,8 @@ const classes = theme => ({
       flex: '1 0 auto',
     },
     cover: {
-      width: '30%',
-      margin: '2px'
+      width: '35%',
+      margin: '8px'
     },
     controls: {
       display: 'flex',
