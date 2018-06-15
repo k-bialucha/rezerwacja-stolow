@@ -6,8 +6,8 @@ class ItemContainer extends React.Component {
         super(props);
         this.state = {
             isInEditMode: false,
-            ID_TYPE: props['ID_TYPE'],
-            NUM_OF_SEATS: props['NUM_OF_SEATS'],
+            tableChanges: {
+            }
         }
     }
     toggleEditMode() {
@@ -17,16 +17,32 @@ class ItemContainer extends React.Component {
     }    
     updateField(type, value) {
         this.setState({
-            [type]: value,
+            tableChanges: {
+                ...this.state.tableChanges,
+                [type]: Number.parseInt(value)
+            }
         });
+    }
+    handleUpdateButtonClick() {
+        const item = {
+            ...this.props.table,
+            ID_TYPE: this.state.ID_TYPE,
+            NUM_OF_SEATS: this.state.NUM_OF_SEATS,
+        }
+        this.props.updateTable(item)
+            .then(
+                this.setState({ isInEditMode: false })
+            )
     }
     render() {
         return (
             <Item 
                 {...this.props}
+                {...this.state}
                 editMode={this.state.isInEditMode}
                 toggleEditMode={() => this.toggleEditMode()}
                 updateField={this.updateField.bind(this)}
+                handleUpdateButtonClick={this.handleUpdateButtonClick.bind(this)}
             />
         );
     }
