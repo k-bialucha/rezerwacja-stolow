@@ -67,9 +67,11 @@ const Reservations = props => {
                             { reservations }
                         </div>
                         :
-                        <Typography variant="text">
-                            Brak rezerwacji
-                        </Typography>
+                        <div className="Reservations-empty-list">
+                            <Typography variant="headline">
+                                Brak rezerwacji
+                            </Typography>
+                        </div>
                     }
                 </React.Fragment>
                 : <Loading text="Ładowanie rezerwacji..." />
