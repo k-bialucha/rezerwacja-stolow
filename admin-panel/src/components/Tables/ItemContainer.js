@@ -12,7 +12,8 @@ class ItemContainer extends React.Component {
     }
     toggleEditMode() {
         this.setState({
-            isInEditMode: !this.state.isInEditMode
+            isInEditMode: !this.state.isInEditMode,
+            ...this.state.isInEditMode ? { tableChanges: { } }: { }
         });
     }    
     updateField(type, value) {
