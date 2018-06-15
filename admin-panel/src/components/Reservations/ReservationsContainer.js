@@ -68,9 +68,10 @@ class ReservationsContainer extends Component {
         const currentDate = (new Date()).setHours(0, 0, 0, 0);
         const comingReservations = this.state.reservations
             .filter(res => new Date(res['DATE']) > currentDate)
+        const filteredReservations = handleFiltering(comingReservations, this.state.filters);
         return (
             <Reservations 
-                reservations={comingReservations}
+                reservations={filteredReservations}
                 areReservationsLoaded={!!this.state.reservations.length}
                 deleteReservationItem={this.deleteReservationItem.bind(this)}
                 updateReservationItem={this.updateReservationItem.bind(this)}
