@@ -11,14 +11,14 @@ import { withStyles } from 'material-ui/styles';
 import TextField from 'material-ui/TextField';
 import { MenuItem } from 'material-ui/Menu';
 import Select from 'material-ui/Select';
+import { LinearProgress } from 'material-ui/Progress';
 
 import poolPicture from '../../images/pool.png';
 import snookerPicture from '../../images/snooker.png';
 import karambolPicture from '../../images/karambol.png';
 
-const Item = props => {
-    return (
-        <Card className={props.classes.card}>
+const Item = props =>
+    <Card className={props.classes.card}>
         <div className={props.classes.details}>
             <CardContent className={props.classes.content}>
                 <Typography variant="headline">
@@ -80,15 +80,21 @@ const Item = props => {
                 </IconButton>
             }
             </div>
+        {props.showLoading ?
+            <LinearProgress 
+                variant="query"
+                color="secondary"
+            />
+            : null
+        }
         </div>
         <CardMedia
             className={props.classes.cover}
             image={tables[props.tableChanges['ID_TYPE'] || props.table['ID_TYPE']].image}
             title={tables[props.table['ID_TYPE']].name}
         />
-        </Card>
-);
-}
+    </Card>
+;
 
 const tables = {
     1: {
