@@ -11,11 +11,11 @@ import Switch from 'material-ui/Switch';
 import ReservationsLoading from './ReservationsLoading';
 
 const sorter = (item1, item2) => {
-    const isDateLater = new Date(item1['DATE']) > new Date(item2['DATE']);
-    if (isDateLater) 
-        return 1
-    const isFirstBigger = Number.parseInt(item1['ID_RES'], 10) > Number.parseInt(item2['ID_RES'], 10);
-    return isFirstBigger ? 1 : -1;
+    const date1 = new Date(item1['DATE']);
+    const date2 = new Date(item2['DATE']);
+    if (date1 === date2)
+        return 0;
+    return (date1 > date2) ? 1 : -1;
 };
 
 const Reservations = props => {
