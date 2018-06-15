@@ -5,8 +5,10 @@ import IconButton from 'material-ui/IconButton';
 import Typography from 'material-ui/Typography';
 import ModeEditIcon from 'material-ui-icons/ModeEdit';
 import BuildIcon from 'material-ui-icons/Build';
+import CancelIcon from 'material-ui-icons/Cancel';
+import SaveIcon from 'material-ui-icons/Save';
 import { withStyles } from 'material-ui/styles';
-
+import TextField from 'material-ui/TextField';
 import { MenuItem } from 'material-ui/Menu';
 import Select from 'material-ui/Select';
 
@@ -24,18 +26,29 @@ const Item = props => {
                 </Typography>
                 {props.editMode ?
                     <React.Fragment>
-                        Typ:
-                        <Select
-                            value={props.table['ID_TYPE']}
-                            onChange={event => props.updateField('ID_TYPE', event.target.value)}
-                            displayEmpty
-                            name="table-type"
-                            className={classes.selectEmpty}
-                        >
-                            <MenuItem value={1}>Pool</MenuItem>
-                            <MenuItem value={2}>Snooker</MenuItem>
-                            <MenuItem value={3}>Karambol</MenuItem>
-                        </Select>
+                        <Typography variant="subheading" color="textSecondary">
+                            Typ: {' '}
+                            <Select
+                                value={props.tableChanges['ID_TYPE'] || props.table['ID_TYPE']}
+                                onChange={event => props.updateField('ID_TYPE', event.target.value)}
+                                displayEmpty
+                                name="table-type"
+                                className={classes.selectEmpty}
+                            >
+                                <MenuItem value={1}>Pool</MenuItem>
+                                <MenuItem value={2}>Snooker</MenuItem>
+                                <MenuItem value={3}>Karambol</MenuItem>
+                            </Select>
+                        </Typography>
+                        <Typography variant="subheading" color="textSecondary">
+                            Liczba miejsc: 
+                            <TextField
+                                name="num_of_seats"
+                                value={props.tableChanges['NUM_OF_SEATS'] || props.table['NUM_OF_SEATS']}
+                                type="number"
+                                onChange={event => props.updateField('NUM_OF_SEATS', event.target.value)}
+                            />
+                        </Typography>
                     </React.Fragment>
                     :
                     <React.Fragment>
@@ -52,14 +65,25 @@ const Item = props => {
                 }
             </CardContent>
             <div className={props.classes.controls}>
+            {props.editMode?
+                <React.Fragment>
+                    <IconButton onClick={props.handleUpdateButtonClick} >
+                        <SaveIcon className={props.classes.icon} />
+                    </IconButton>
+                    <IconButton onClick={props.toggleEditMode} >
+                        <CancelIcon className={props.classes.icon} />
+                    </IconButton>
+                </React.Fragment>
+                :
                 <IconButton onClick={props.toggleEditMode} >
                     <ModeEditIcon className={props.classes.icon} />
                 </IconButton>
+            }
             </div>
         </div>
         <CardMedia
             className={props.classes.cover}
-            image={tables[props.table['ID_TYPE']].image}
+            image={tables[props.tableChanges['ID_TYPE'] || props.table['ID_TYPE']].image}
             title={tables[props.table['ID_TYPE']].name}
         />
         </Card>
