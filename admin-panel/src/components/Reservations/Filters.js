@@ -1,10 +1,11 @@
 import React from 'react';
-//import { Paper } from 'material-ui/Paper';
+
+import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 
 const Filters = props => {
     return (
-        <div className="Reservations-filters">
+        <Paper style={style}>
             <TextField
                 name="date"
                 type="date"
@@ -25,8 +26,15 @@ const Filters = props => {
                 }}
                 onChange={props.applyFilter}
             />
-        </div>
+        </Paper>
     );
+}
+
+const style = { 
+    display: 'flex', 
+    justifyContent: 'space-evenly',
+    margin: '5px 22px 20px 22px',
+    padding: '12px 15px'
 }
 
 export default Filters;
