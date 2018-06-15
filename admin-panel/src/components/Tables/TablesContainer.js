@@ -43,6 +43,7 @@ class TablesContainer extends React.PureComponent {
         return (
             <Tables 
                 tables={this.state.tables}
+                areTablesLoaded={!!this.state.tables.length}
                 updateTable={this.updateTableItem.bind(this)}
             />
         );

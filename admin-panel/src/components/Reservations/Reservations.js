@@ -8,7 +8,7 @@ import Typography from 'material-ui/Typography';
 import { FormControlLabel } from 'material-ui/Form';
 import Switch from 'material-ui/Switch';
 
-import ReservationsLoading from './ReservationsLoading';
+import Loading from '../Loading';
 
 const sorter = (item1, item2) => {
     const date1 = new Date(item1['DATE']);
@@ -21,8 +21,8 @@ const sorter = (item1, item2) => {
 const Reservations = props => {
     const reservations = props.reservations
         .sort(sorter)
-        .map(reservation => 
-            <Item 
+        .map(reservation =>
+            <Item
                 key={reservation['ID_RES']}
                 id={reservation['ID_RES']}
                 date={reservation['DATE']}
@@ -35,7 +35,8 @@ const Reservations = props => {
                 cancelItem={() => props.cancelReservationItem(reservation['ID_RES'])}
                 updateItem={newFields => {
                     const updatedItem = { ...reservation, ...newFields }
-                    return props.updateReservationItem(reservation['ID_RES'], updatedItem)}
+                    return props.updateReservationItem(reservation['ID_RES'], updatedItem)
+                }
                 }
             />
         );
@@ -50,9 +51,9 @@ const Reservations = props => {
                         <FormControlLabel
                             control={
                                 <Switch
-                                checked={false}
-                                onChange={undefined}
-                                value={false}
+                                    checked={false}
+                                    onChange={undefined}
+                                    value={false}
                                 />
                             }
                             label="Filtry"
@@ -68,7 +69,7 @@ const Reservations = props => {
                         </Typography>
                     </React.Fragment>
                 )
-                : <ReservationsLoading />
+                : <Loading text="Ładowanie rezerwacji..." />
             }
         </Paper>
     );

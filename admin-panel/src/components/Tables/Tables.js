@@ -5,25 +5,31 @@ import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
 
 import Item from './ItemContainer';
+import Loading from '../Loading';
 
 const Tables = props => 
     <Paper className={props.classes.tables}>
-        <Typography variant="display1">
-            Dostępne stoły:
-        </Typography>
-        <Typography>
-            {props.tables
-                .map(table => (
-                    <Item 
-                        key={table['ID_TABLE']}
-                        table={table}
-                        updateTable={props.updateTable}
-                    />
-                ))
-            }
-        </Typography>
+        {props.areTablesLoaded ?
+            <React.Fragment>
+                <Typography variant="display1">
+                    Dostępne stoły:
+                </Typography>
+                <Typography>
+                    {props.tables
+                        .map(table => (
+                            <Item
+                                key={table['ID_TABLE']}
+                                table={table}
+                                updateTable={props.updateTable}
+                            />
+                        ))
+                    }
+                </Typography>
+            </React.Fragment>
+            : <Loading text="Ładowanie stołów..." />
+        }
     </Paper>
-;
+    ;
 
 const classes = {
     tables: {
