@@ -9,6 +9,7 @@ import { FormControlLabel } from 'material-ui/Form';
 import Switch from 'material-ui/Switch';
 
 import Loading from '../Loading';
+import Filters from './Filters';
 
 const sorter = (item1, item2) => {
     const date1 = new Date(item1['DATE']);
@@ -42,33 +43,35 @@ const Reservations = props => {
         );
     return (
         <Paper className="Reservations">
-            {props.areReservationsLoaded ?
-                (reservations.length > 0 ?
-                    <React.Fragment>
-                        <Typography variant="display1">
-                            Nadchodzące rezerwacje
-                        </Typography>
-                        <FormControlLabel
-                            control={
-                                <Switch
-                                    checked={false}
-                                    onChange={undefined}
-                                    value={false}
-                                />
-                            }
-                            label="Filtry"
-                        />
+            {props.areReservationsLoaded ?  
+                <React.Fragment>
+                    <Typography variant="display1">
+                        Nadchodzące rezerwacje
+                    </Typography>
+                    <FormControlLabel
+                        control={
+                            <Switch
+                                checked={props.showFilters}
+                                onChange={() => props.toggleFilters()}
+                                value={false}
+                            />
+                        }
+                        label="Filtry"
+                    />
+                    {props.showFilters ?
+                        <Filters applyFilter={props.applyFilter}/>
+                        : null
+                    }
+                    {reservations.length > 0 ?
                         <div className="Reservations-list">
                             { reservations }
                         </div>
-                    </React.Fragment>
-                    : 
-                    <React.Fragment>
+                        :
                         <Typography variant="text">
                             Brak rezerwacji
                         </Typography>
-                    </React.Fragment>
-                )
+                    }
+                </React.Fragment>
                 : <Loading text="Ładowanie rezerwacji..." />
             }
         </Paper>
