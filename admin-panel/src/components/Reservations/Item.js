@@ -15,7 +15,7 @@ import CancelIcon from 'material-ui-icons/Cancel';
 import SaveIcon from 'material-ui-icons/Save';
 import ConfirmIcon from 'material-ui-icons/TouchApp';
 
-import { CircularProgress } from 'material-ui/Progress';
+import { LinearProgress } from 'material-ui/Progress';
 
 import ItemFields from './ItemFields';
 
@@ -45,6 +45,7 @@ const Item = props =>
                 startHour={props.startHour}
                 endHour={props.endHour}
                 updateField={props.updateField}
+                disabled={props.cancelled || props.isItemLoading}
             />
         </ExpansionPanelDetails>
         <ExpansionPanelActions>
@@ -64,9 +65,9 @@ const Item = props =>
                     disabled={props.isItemLoading} 
                 >
                     <CancelIcon /> Anuluj
-                    {props.isItemLoading && <CircularProgress size={24} />}
                 </Button>
             }
+            {!props.cancelled &&
             <Button 
                 color="primary"
                 mini
@@ -75,7 +76,15 @@ const Item = props =>
             >
                 <SaveIcon /> Zapisz
             </Button>
+            }
         </ExpansionPanelActions>
+        {props.isItemLoading ?
+            <LinearProgress 
+                variant="query"
+                color="secondary"
+            />
+            : null
+        }
     </ExpansionPanel>
 ;
 
