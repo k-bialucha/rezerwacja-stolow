@@ -27,27 +27,32 @@ const Item = props =>
                 {props.editMode ?
                     <React.Fragment>
                         <Typography variant="subheading" color="textSecondary">
-                            Typ: {' '}
-                            <Select
-                                value={props.tableChanges['ID_TYPE'] || props.table['ID_TYPE']}
-                                onChange={event => props.updateField('ID_TYPE', event.target.value)}
-                                displayEmpty
-                                name="table-type"
-                                className={classes.selectEmpty}
-                            >
-                                <MenuItem value={1}>Pool</MenuItem>
-                                <MenuItem value={2}>Snooker</MenuItem>
-                                <MenuItem value={3}>Karambol</MenuItem>
-                            </Select>
+                            <div className={props.classes.fieldContainer}>
+                                <span className={props.classes.fieldLabel}>Typ: {' '}</span>
+                                <Select
+                                    value={props.tableChanges['ID_TYPE'] || props.table['ID_TYPE']}
+                                    onChange={event => props.updateField('ID_TYPE', event.target.value)}
+                                    displayEmpty
+                                    name="table-type"
+                                    className={props.classes.field}
+                                >
+                                    <MenuItem value={1}>Pool</MenuItem>
+                                    <MenuItem value={2}>Snooker</MenuItem>
+                                    <MenuItem value={3}>Karambol</MenuItem>
+                                </Select>
+                            </div>
                         </Typography>
                         <Typography variant="subheading" color="textSecondary">
-                            Liczba miejsc: 
-                            <TextField
-                                name="num_of_seats"
-                                value={props.tableChanges['NUM_OF_SEATS'] || props.table['NUM_OF_SEATS']}
-                                type="number"
-                                onChange={event => props.updateField('NUM_OF_SEATS', event.target.value)}
-                            />
+                            <div className={props.classes.fieldContainer}>
+                                <span className={props.classes.fieldLabel}>Liczba miejsc: </span>
+                                <TextField
+                                    name="num_of_seats"
+                                    value={props.tableChanges['NUM_OF_SEATS'] || props.table['NUM_OF_SEATS']}
+                                    type="number"
+                                    onChange={event => props.updateField('NUM_OF_SEATS', event.target.value)}
+                                    className={props.classes.field}
+                                />
+                            </div>
                         </Typography>
                     </React.Fragment>
                     :
@@ -67,11 +72,11 @@ const Item = props =>
             <div className={props.classes.controls}>
             {props.editMode?
                 <React.Fragment>
-                    <IconButton onClick={props.handleUpdateButtonClick} >
-                        <SaveIcon className={props.classes.icon} />
+                    <IconButton onClick={props.handleUpdateButtonClick} disabled={props.showLoading} >
+                        <SaveIcon className={props.classes.icon} color={props.showLoading ? "default" : "primary"}/>
                     </IconButton>
-                    <IconButton onClick={props.toggleEditMode} >
-                        <CancelIcon className={props.classes.icon} />
+                    <IconButton onClick={props.toggleEditMode} disabled={props.showLoading} >
+                        <CancelIcon className={props.classes.icon} color={props.showLoading ? "default" : "secondary"} />
                     </IconButton>
                 </React.Fragment>
                 :
@@ -133,8 +138,8 @@ const classes = theme => ({
     controls: {
       display: 'flex',
       alignItems: 'center',
-      justifyContent: 'space-around',
-      margin: '3px 10%'
+      justifyContent: 'space-evenly',
+      margin: '2px 10%'
     },
     icon: {
       height: 34,
@@ -143,6 +148,20 @@ const classes = theme => ({
     highlightedText: {
         color: theme.palette.primary.main,
         fontWeight: 700
+    },
+    field: {
+        marginLeft: '5px',
+        width: '140px'
+    },
+    fieldLabel: {
+        marginLeft: '5px',
+        width: '120px'
+    },
+    fieldContainer: {
+        display: 'flex',
+        width: '330px',
+        alignItems: 'center',
+        marginTop: '5px'
     }
 });
 
