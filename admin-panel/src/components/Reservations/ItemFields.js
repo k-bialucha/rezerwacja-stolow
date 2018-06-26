@@ -13,6 +13,7 @@ const ItemFields = props =>
                 type="number"
                 onChange={props.updateField}
                 fullWidth
+                disabled={props.disabled}
             />
         </Grid>
         <Grid item xs={6}>
@@ -23,6 +24,7 @@ const ItemFields = props =>
                 type="date"
                 onChange={props.updateField}
                 fullWidth
+                disabled={props.disabled}
             />
         </Grid>
         <Grid item xs={6}>
@@ -33,6 +35,7 @@ const ItemFields = props =>
                 type="number"
                 onChange={props.updateField}
                 fullWidth
+                disabled={props.disabled}
             />
         </Grid>
         <Grid item xs={6}>
@@ -43,6 +46,7 @@ const ItemFields = props =>
                 type="number"
                 onChange={props.updateField}
                 fullWidth
+                disabled={props.disabled}
             />
         </Grid>
     </Grid>

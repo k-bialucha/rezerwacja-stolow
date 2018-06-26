@@ -6,27 +6,45 @@ class ItemContainer extends React.Component {
         super(props);
         this.state = {
             isInEditMode: false,
-            ID_TYPE: props['ID_TYPE'],
-            NUM_OF_SEATS: props['NUM_OF_SEATS'],
+            isItemUpdating: false,
+            tableChanges: { }
         }
     }
     toggleEditMode() {
         this.setState({
-            isInEditMode: !this.state.isInEditMode
+            isInEditMode: !this.state.isInEditMode,
+            ...this.state.isInEditMode ? { tableChanges: { } } : { }
         });
     }    
     updateField(type, value) {
         this.setState({
-            [type]: value,
+            tableChanges: {
+                ...this.state.tableChanges,
+                [type]: Number.parseInt(value)
+            }
         });
+    }
+    handleUpdateButtonClick() {
+        const item = {
+            ...this.props.table,
+            ...this.state.tableChanges
+        }
+        this.setState({ isItemUpdating: true });
+        this.props.updateTable(item)
+            .then(
+                () => this.setState({ isInEditMode: false, isItemUpdating: false })
+            )
     }
     render() {
         return (
             <Item 
                 {...this.props}
+                {...this.state}
                 editMode={this.state.isInEditMode}
                 toggleEditMode={() => this.toggleEditMode()}
                 updateField={this.updateField.bind(this)}
+                handleUpdateButtonClick={this.handleUpdateButtonClick.bind(this)}
+                showLoading={this.state.isItemUpdating}
             />
         );
     }

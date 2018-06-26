@@ -9,3 +9,15 @@
 .Reservations-list {
     margin: 15px 20px;
 }
+
+.Reservations-empty-list {
+    left: 0;
+    right: 0;
+    margin: auto;
+    text-align: center;
+}
+
+.Reservations-filters {
+    margin: 15px 20px;
+    padding: 10px 15px;
+}

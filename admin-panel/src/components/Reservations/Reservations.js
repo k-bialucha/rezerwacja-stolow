@@ -5,22 +5,25 @@ import './Reservations.css';
 import Item from './ItemContainer';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
+import { FormControlLabel } from 'material-ui/Form';
+import Switch from 'material-ui/Switch';
 
-import ReservationsLoading from './ReservationsLoading';
+import Loading from '../Loading';
+import Filters from './Filters';
 
 const sorter = (item1, item2) => {
-    const isDateLater = new Date(item1['DATE']) > new Date(item2['DATE']);
-    if (isDateLater) 
-        return 1
-    const isFirstBigger = Number.parseInt(item1['ID_RES'], 10) > Number.parseInt(item2['ID_RES'], 10);
-    return isFirstBigger ? 1 : -1;
+    const date1 = new Date(item1['DATE']);
+    const date2 = new Date(item2['DATE']);
+    if (date1 === date2)
+        return 0;
+    return (date1 > date2) ? 1 : -1;
 };
 
 const Reservations = props => {
     const reservations = props.reservations
         .sort(sorter)
-        .map(reservation => 
-            <Item 
+        .map(reservation =>
+            <Item
                 key={reservation['ID_RES']}
                 id={reservation['ID_RES']}
                 date={reservation['DATE']}
@@ -33,30 +36,45 @@ const Reservations = props => {
                 cancelItem={() => props.cancelReservationItem(reservation['ID_RES'])}
                 updateItem={newFields => {
                     const updatedItem = { ...reservation, ...newFields }
-                    return props.updateReservationItem(reservation['ID_RES'], updatedItem)}
+                    return props.updateReservationItem(reservation['ID_RES'], updatedItem)
+                }
                 }
             />
         );
     return (
         <Paper className="Reservations">
-            {props.areReservationsLoaded ?
-                (reservations.length > 0 ?
-                    <React.Fragment>
-                        <Typography variant="display1">
-                            Nadchodzące rezerwacje
-                        </Typography>
+            {props.areReservationsLoaded ?  
+                <React.Fragment>
+                    <Typography variant="display1">
+                        Nadchodzące rezerwacje
+                    </Typography>
+                    <FormControlLabel
+                        control={
+                            <Switch
+                                checked={props.showFilters}
+                                onChange={() => props.toggleFilters()}
+                                value={false}
+                            />
+                        }
+                        label="Filtry"
+                    />
+                    {props.showFilters ?
+                        <Filters applyFilter={props.applyFilter}/>
+                        : null
+                    }
+                    {reservations.length > 0 ?
                         <div className="Reservations-list">
                             { reservations }
                         </div>
-                    </React.Fragment>
-                    : 
-                    <React.Fragment>
-                        <Typography variant="text">
-                            Brak rezerwacji
-                        </Typography>
-                    </React.Fragment>
-                )
-                : <ReservationsLoading />
+                        :
+                        <div className="Reservations-empty-list">
+                            <Typography variant="headline">
+                                Brak rezerwacji
+                            </Typography>
+                        </div>
+                    }
+                </React.Fragment>
+                : <Loading text="Ładowanie rezerwacji..." />
             }
         </Paper>
     );
